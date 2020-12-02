@@ -18,7 +18,7 @@ class IhmMenu:
 
     @staticmethod
     def menu_generale():
-        print = ("BIENVENUE AU TOUNROIS D'ECHEC\n")
+        print("BIENVENUE AU TOUNROIS D'ECHEC\n")
         print("1-Demarrrer le tournois")
         print("2-Afficher les rapport")
         print("3-quitter le programme")
@@ -27,26 +27,31 @@ class IhmMenu:
 
     @staticmethod
     def menu_entrer_joueur():
-        print("rentrer les joueurs")
+        print("***************RENTRER LES JOUEURS*************")
         choix_joueur_nom = IhmMenu.saisie_string("1-Entrer le Prenom du joueur\n")
         choix_joueur_prenom = IhmMenu.saisie_string("2-Entrer le Nom du joueur\n")
         choix_joueur_date = IhmMenu.saisie_string("3-Entrer la date d'anniversaire du joueur\n")
         choix_joueur_sex = IhmMenu.saisie_string("4-Entrer le sex du joueur\n")
-        choix_joueur_rank = IhmMenu.saisie_int("5-Enrtrer le rang du joueur\n")
+        choix_joueur_rank = IhmMenu.saisie_int("5-Entrer le rang du joueur\n")
+        choix_joueur_id = IhmMenu.saisie_int("6-Entrer l'id du joueur\n")
 
         list_choix = [choix_joueur_nom, choix_joueur_prenom, choix_joueur_date,
-                      choix_joueur_sex, choix_joueur_rank]
+                      choix_joueur_sex, choix_joueur_rank, choix_joueur_id]
         return list_choix
 
     @staticmethod
     def menu_description_tournement():
+        print("******************WELCOME TO THE TOURNEMENT SOFTWARE********************\n")
         choix_tournois_nom = IhmMenu.saisie_string("1-Entrer le nom du tournois\n")
         choix_tournois_lieu = IhmMenu.saisie_string("2-Entrer le lieu du tournois\n")
         choix_tournois_date = IhmMenu.saisie_string("3-Entrer la date du tournois\n")
-        choix_tournois_description = IhmMenu.saisie_string("4-Entrer la description du tournois\n")
+        choix_tournois_time_control = IhmMenu.saisie_string(
+            "4-Entrer le time_control du tournois(blitz,bullet,quick)\n")
+        choix_tournois_description = IhmMenu.saisie_string("5-Entrer la description du tournois\n")
 
         list_choix = [choix_tournois_nom , choix_tournois_lieu, choix_tournois_date,
-                      choix_tournois_description]
+                      choix_tournois_time_control, choix_tournois_description, ]
+
         return list_choix
 
     @staticmethod

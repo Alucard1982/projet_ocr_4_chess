@@ -1,13 +1,13 @@
 class Tournement:
 
-    def __init__(self, name, location, date, description):
+    def __init__(self, name="", location="", date="", time_control="", description=""):
         self._name = name
         self._location = location
         self._date = date
         self._nb_round = 4
         self._list_round = []
         self._list_players = []
-        self._time_control = ["blitz", "bullet", "quick hit"]
+        self._time_control = time_control
         self._description = description
 
     @property
@@ -38,17 +38,15 @@ class Tournement:
     def list_round(self):
         return self._list_round
 
-    @list_round.setter
-    def list_round(self, value):
-        self._list_round = value
+    def add_round(self, rounde):
+        self._list_round.append(rounde)
 
     @property
     def list_players(self):
         return self._list_players
 
-    @list_players.setter
-    def list_players(self, value):
-        self._list_players = value
+    def add_player(self, player):
+        self._list_players.append(player)
 
     @property
     def time_control(self):
@@ -65,3 +63,11 @@ class Tournement:
     @description.setter
     def description(self, value):
         self._description = value
+
+    def __repr__(self):
+        return " {} {} {} {} {} {}".format(self._name,
+                                           self._location,
+                                           self._date,
+                                           self._nb_round,
+                                           self._time_control,
+                                           self._description)

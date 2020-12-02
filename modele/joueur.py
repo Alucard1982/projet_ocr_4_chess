@@ -3,12 +3,14 @@ import datetime
 
 class Player:
 
-    def __init__(self, first_name="", last_name="", date_of_birth="", sex="", ranking=None):
+    def __init__(self, first_name="", last_name="", date_of_birth="", sex="", ranking=None, id_player=None):
         self._first_name = first_name
         self._last_name = last_name
         self._date_of_birth = date_of_birth
         self._sex = sex
         self._ranking = ranking
+        self._id_player = id_player
+        self._tag_player = []
 
     @property
     def first_name(self):
@@ -52,8 +54,23 @@ class Player:
             raise ValueError("Sorry, no numbers ranking below zero")
         self._ranking = value
 
+    @property
+    def id_player(self):
+        return self._id_player
+
+    @id_player.setter
+    def id_player(self, value):
+        self._id_player = value
+
+    @property
+    def tag_player(self):
+        return self._tag_player
+
+    def add_oppenent(self, player):
+        self._tag_player.append(player)
+
     def __repr__(self):
-        return " {} {} {} {} {}".format(self._first_name,
-                                        self._last_name,
-                                        self._date_of_birth,
-                                        self._sex, self._ranking)
+        return " {} {} {} {} {} {}".format(self._first_name,
+                                           self._last_name,
+                                           self._date_of_birth,
+                                           self._sex, self._ranking, self._tag_player)

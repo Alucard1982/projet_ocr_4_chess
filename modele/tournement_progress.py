@@ -1,3 +1,4 @@
+import operator
 from operator import itemgetter, attrgetter
 
 
@@ -49,15 +50,15 @@ class Round:
         self._list_match.append(([list_players_strong[2]], [list_players_weak[2]]))
         self._list_match.append(([list_players_strong[3]], [list_players_weak[3]]))
 
-    def next_round(self, list_scored_player):
-        list_score_1 = []
-        list_score_0 = []
-        list_score_draw = []
-        list_scored_player_sorted = (sorted(list_scored_player, key=itemgetter(1), reverse=True))
+    def next_round(self, list_end_round):
 
-        lol = (sorted(list_scored_player_sorted, key=itemgetter(0), reverse=True))
-        print(lol)
-
+        while len(list_end_round) != 0:
+            i = 1
+            while list_end_round[0][0].id_player in list_end_round[i][0].tag_player:
+                i = i + 1
+            self._list_match.append((list_end_round[0], list_end_round[i]))
+            list_end_round.remove(list_end_round[i])
+            list_end_round.remove(list_end_round[0])
 
 
 class Match:
@@ -74,13 +75,22 @@ class Match:
     def score_match(list_match):
         list_scored_player = []
         i = 0
-        for player1, player2 in list_match:
+        for player1_score, player2_score in list_match:
             i = i + 1
-            choix_joueur1 = Match.saisie_int("rentrer le score du joueur1 du match" + str(i) + "\n")
-            choix_joueur2 = Match.saisie_int("rentrer le score du joueur2 du match" + str(i) + "\n")
-            player1.append(choix_joueur1)
-            player2.append(choix_joueur2)
-            list_scored_player.append(player1)
-            list_scored_player.append(player2)
+            choix_joueur1 = Match.saisie_int("Rentrer le score du du joueur1 du match" + str(i) + "\n")
+            choix_joueur2 = Match.saisie_int("Rentrer le score du joueur2 du match" + str(i) + "\n")
+            if len(player1_score) == 1:
+                player1_score.append(choix_joueur1)
+                player2_score.append(choix_joueur2)
+            else:
+                player1_score[1] += choix_joueur1
+                player2_score[1] += choix_joueur2
+            player1_score[0].add_oppenent(player2_score[0].id_player)
+            player2_score[0].add_oppenent(player1_score[0].id_player)
+            list_scored_player.append(player1_score)
+            list_scored_player.append(player2_score)
 
-        return list_scored_player
+        list_scored_player_sorted = (sorted(list_scored_player, key=lambda player: player[0].ranking, reverse=True))
+        list_end_round = (sorted(list_scored_player_sorted, key=itemgetter(1), reverse=True))
+
+        return list_end_round
