@@ -17,11 +17,17 @@ class IhmMenu:
             return IhmMenu.saisie_string(message)
 
     @staticmethod
+    def print_string(message):
+        print(message)
+
+
+
+    @staticmethod
     def menu_generale():
-        print("BIENVENUE AU TOUNROIS D'ECHEC\n")
-        print("1-Demarrrer le tournois")
-        print("2-Afficher les rapport")
-        print("3-quitter le programme")
+        print("************BIENVENUE AU TOURNOIS D'ECHEC**************\n")
+        print("1-Créer et demarrer le tournois")
+        print("2-Afficher les rapports")
+        print("3-Quitter le programme")
 
 
 
@@ -61,4 +67,4 @@ class IhmMenu:
     @staticmethod
     def menu_round():
         print("commencer le round")
-        print("comment le next_round")
+        print("comment le next_ro")

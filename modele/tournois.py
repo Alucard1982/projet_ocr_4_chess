@@ -27,6 +27,15 @@ class Tournement:
         self._location = value
 
     @property
+    def date(self):
+        return self._date
+
+    @date.setter
+    def date(self, value):
+        self._date = value
+
+
+    @property
     def nb_round(self):
         return self._nb_round
 

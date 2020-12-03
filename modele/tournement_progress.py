@@ -3,7 +3,7 @@ from operator import itemgetter, attrgetter
 
 
 class Round:
-    def __init__(self, name="", star_date="", end_date=""):
+    def __init__(self, name="", star_date=None, end_date=None):
         self._list_match = []
         self._name = name
         self._star_date = star_date
@@ -40,6 +40,10 @@ class Round:
     @end_date.setter
     def end_date(self, value):
         self._end_date = value
+
+    def __repr__(self):
+        return " {} {} {}".format(self._name, self._star_date, self._end_date)
+
 
     def first_round(self, list_players):
         list_player_sorted = (sorted(list_players, key=lambda player: player.ranking, reverse=True))
