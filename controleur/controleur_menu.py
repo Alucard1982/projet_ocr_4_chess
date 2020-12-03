@@ -95,11 +95,11 @@ class ControleurMenu:
                     players_table.insert(dic_player)
                     list_dic_player.append(dic_player)
                 """ for rounde in list_rounds:
-                    tournois.add_round(rounde)
-                    list_dic_round ={'name_round': rounde.name, 'star_date': rounde.star_date,
-                                             'end_date': rounde.end_date}
-                    list_dic_round.append(list_dic_round)
-                    i = 0
+                        tournois.add_round(rounde)
+                        list_dic_round = {'name_round': rounde.name, 'star_date': rounde.star_date,
+                                                 'end_date': rounde.end_date}
+                        list_dic_round.append(list_dic_round)
+                        i = 0
                         for match in rounde.list_match:
                             i = i+1
                             dic_match = {"match"+str(i): match}
@@ -115,10 +115,6 @@ class ControleurMenu:
                                          #'list_round' : list_dic_round,
                                          #'list_match': list_dic_match,
                                          })
-                """
-                    tournement_table.insert({'name_round': rounde.name, 'star_date': rounde.star_date,
-                                             'end_date': rounde.end_date})"""
-
             if choice_menu_generale == 3:
                 boole = False
                 IhmMenu.print_string("THX FOR PLAYING CHESS!! HAVE A NICE DAY")
