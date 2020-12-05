@@ -1,6 +1,8 @@
+
 class Tournement:
 
     def __init__(self, name="", location="", date="", time_control="", description=""):
+
         self._name = name
         self._location = location
         self._date = date
@@ -34,14 +36,9 @@ class Tournement:
     def date(self, value):
         self._date = value
 
-
     @property
     def nb_round(self):
         return self._nb_round
-
-    @nb_round.setter
-    def nb_round(self, value):
-        self._nb_round = value
 
     @property
     def list_round(self):

@@ -1,6 +1,3 @@
-import datetime
-
-
 class Player:
 
     def __init__(self, first_name="", last_name="", date_of_birth="", sex="", ranking=None, id_player=None):
@@ -24,7 +21,7 @@ class Player:
     def last_name(self):
         return self._last_name
 
-    @first_name.setter
+    @last_name.setter
     def last_name(self, value):
         self._last_name = value
 
@@ -70,7 +67,16 @@ class Player:
         self._tag_player.append(player)
 
     def __repr__(self):
-        return " {} {} {} {} {} {}".format(self._first_name,
-                                           self._last_name,
-                                           self._date_of_birth,
-                                           self._sex, self._ranking, self._tag_player)
+        return " {} {} {} {} {} {} {}".format(self._first_name,
+                                            self._last_name,
+                                            self._date_of_birth,
+                                            self._sex, self._ranking, self._tag_player, self._id_player)
+
+    def to_dict(self):
+        diction = {"first_name": self._first_name,
+                   "last_name": self._last_name,
+                   "date_of_birth": self._date_of_birth,
+                   "sex": self._sex,
+                   "ranking": self._ranking,
+                   "tag_player": self._tag_player}
+        return diction

@@ -62,9 +62,13 @@ class IhmMenu:
 
     @staticmethod
     def menu_rapport():
-        pass
+        print("1-Liste de tous les joueurs par ordre alphabétique")
+        print("2-Liste de tous les joueurs par classement")
+        print("3-Liste de tous les joueurs par tournois par ordre alphabétique")
+        print("4-Liste de tous les joueurs par tournois par classement")
+        print("5-Liste de tous les tournois ")
+        print("6-Liste de toutes les rounds par tournois ")
+        print("7-Liste de tous les matchs par tournois")
+        print("8- revenir au menu générale")
 
-    @staticmethod
-    def menu_round():
-        print("commencer le round")
-        print("comment le next_ro")
+

@@ -1,5 +1,4 @@
-import operator
-from operator import itemgetter, attrgetter
+from operator import itemgetter
 
 
 class Round:
@@ -17,11 +16,14 @@ class Round:
     def list_match(self, value):
         self._list_match = value
 
+    def add_match(self, value):
+        self._list_match.append(value)
+
     @property
     def name(self):
         return self._name
 
-    @list_match.setter
+    @name.setter
     def name(self, value):
         self._name = value
 
@@ -44,7 +46,6 @@ class Round:
     def __repr__(self):
         return " {} {} {}".format(self._name, self._star_date, self._end_date)
 
-
     def first_round(self, list_players):
         list_player_sorted = (sorted(list_players, key=lambda player: player.ranking, reverse=True))
         list_players_strong = list_player_sorted[:4]
@@ -54,35 +55,51 @@ class Round:
         self._list_match.append(([list_players_strong[2]], [list_players_weak[2]]))
         self._list_match.append(([list_players_strong[3]], [list_players_weak[3]]))
 
-    def next_round(self, list_end_round):
+    def next_round(self):
 
-        while len(list_end_round) != 0:
+        print(self._list_match[0][0].id_player)
+        print(self._list_match[1][0].tag_player)
+
+        while len(self._list_match) != 0:
             i = 1
-            while list_end_round[0][0].id_player in list_end_round[i][0].tag_player:
+            while int(self._list_match[0][0].id_player) in self._list_match[i][0].tag_player:
                 i = i + 1
-            self._list_match.append((list_end_round[0], list_end_round[i]))
-            list_end_round.remove(list_end_round[i])
-            list_end_round.remove(list_end_round[0])
+            self._list_match.append((self._list_match[0], self._list_match[i]))
+            self._list_match.remove(self._list_match[i])
+            self._list_match.remove(self._list_match[0])
 
 
 class Match:
+    def __init__(self):
+        self._list_match = []
+        self._list_end_round = []
 
-    @staticmethod
-    def saisie_int(message):
+    @property
+    def list_end_round(self):
+        return self._list_end_round
+
+    @property
+    def list_match(self):
+        return self._list_match
+
+    @list_match.setter
+    def list_match(self, value):
+        self._list_match = value
+
+    def _saisie_int(self, message):
         try:
-            return int(input(message))
+            return float(input(message))
         except ValueError:
             print("attention ce n'est pas un nombre compris entre 0 et 1")
             return Match.saisie_int(message)
 
-    @staticmethod
-    def score_match(list_match):
+    def score_match(self):
         list_scored_player = []
         i = 0
-        for player1_score, player2_score in list_match:
+        for player1_score, player2_score in self._list_match:
             i = i + 1
-            choix_joueur1 = Match.saisie_int("Rentrer le score du du joueur1 du match" + str(i) + "\n")
-            choix_joueur2 = Match.saisie_int("Rentrer le score du joueur2 du match" + str(i) + "\n")
+            choix_joueur1 = self._saisie_int("Rentrer le score du du joueur1 du match" + str(i) + "\n")
+            choix_joueur2 = self._saisie_int("Rentrer le score du joueur2 du match" + str(i) + "\n")
             if len(player1_score) == 1:
                 player1_score.append(choix_joueur1)
                 player2_score.append(choix_joueur2)
@@ -95,6 +112,5 @@ class Match:
             list_scored_player.append(player2_score)
 
         list_scored_player_sorted = (sorted(list_scored_player, key=lambda player: player[0].ranking, reverse=True))
-        list_end_round = (sorted(list_scored_player_sorted, key=itemgetter(1), reverse=True))
-
-        return list_end_round
+        self._list_end_round = (sorted(list_scored_player_sorted, key=itemgetter(1), reverse=True))
+        return self._list_end_round
