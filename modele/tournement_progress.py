@@ -4,6 +4,7 @@ from operator import itemgetter
 class Round:
     def __init__(self, name="", star_date=None, end_date=None):
         self._list_match = []
+        self._list_match_paired = []
         self._name = name
         self._star_date = star_date
         self._end_date = end_date
@@ -16,8 +17,13 @@ class Round:
     def list_match(self, value):
         self._list_match = value
 
-    def add_match(self, value):
-        self._list_match.append(value)
+    @property
+    def list_match_paired(self):
+        return self._list_match_paired
+
+    @list_match_paired.setter
+    def list_match_paired(self, value):
+        self._list_match_paired = value
 
     @property
     def name(self):
@@ -54,24 +60,20 @@ class Round:
         self._list_match.append(([list_players_strong[1]], [list_players_weak[1]]))
         self._list_match.append(([list_players_strong[2]], [list_players_weak[2]]))
         self._list_match.append(([list_players_strong[3]], [list_players_weak[3]]))
+        return self._list_match
 
     def next_round(self):
-
-        print(self._list_match[0][0].id_player)
-        print(self._list_match[1][0].tag_player)
-
         while len(self._list_match) != 0:
             i = 1
-            while int(self._list_match[0][0].id_player) in self._list_match[i][0].tag_player:
+            while self._list_match[0][0].id_player in self._list_match[i][0].tag_player:
                 i = i + 1
-            self._list_match.append((self._list_match[0], self._list_match[i]))
+            self._list_match_paired.append((self._list_match[0], self._list_match[i]))
             self._list_match.remove(self._list_match[i])
             self._list_match.remove(self._list_match[0])
 
 
-class Match:
+class Match(Round):
     def __init__(self):
-        self._list_match = []
         self._list_end_round = []
 
     @property
@@ -91,7 +93,7 @@ class Match:
             return float(input(message))
         except ValueError:
             print("attention ce n'est pas un nombre compris entre 0 et 1")
-            return Match.saisie_int(message)
+            return self._saisie_int(message)
 
     def score_match(self):
         list_scored_player = []

@@ -20,16 +20,12 @@ class IhmMenu:
     def print_string(message):
         print(message)
 
-
-
     @staticmethod
     def menu_generale():
-        print("************BIENVENUE AU TOURNOIS D'ECHEC**************\n")
+        print("************WELCOME TO CHESS TOURNEMENT**************\n")
         print("1-Créer et demarrer le tournois")
         print("2-Afficher les rapports")
         print("3-Quitter le programme")
-
-
 
     @staticmethod
     def menu_entrer_joueur():
@@ -55,7 +51,7 @@ class IhmMenu:
             "4-Entrer le time_control du tournois(blitz,bullet,quick)\n")
         choix_tournois_description = IhmMenu.saisie_string("5-Entrer la description du tournois\n")
 
-        list_choix = [choix_tournois_nom , choix_tournois_lieu, choix_tournois_date,
+        list_choix = [choix_tournois_nom, choix_tournois_lieu, choix_tournois_date,
                       choix_tournois_time_control, choix_tournois_description, ]
 
         return list_choix
@@ -66,9 +62,11 @@ class IhmMenu:
         print("2-Liste de tous les joueurs par classement")
         print("3-Liste de tous les joueurs par tournois par ordre alphabétique")
         print("4-Liste de tous les joueurs par tournois par classement")
-        print("5-Liste de tous les tournois ")
-        print("6-Liste de toutes les rounds par tournois ")
-        print("7-Liste de tous les matchs par tournois")
-        print("8- revenir au menu générale")
+        print("5- Passer à la suite du menu")
 
-
+    @staticmethod
+    def menu_rapport_2():
+        print("6-Liste de tous les tournois ")
+        print("7-Liste de toutes les rounds par tournois ")
+        print("8-Liste de tous les matchs par tournois")
+        print("9- revenir au menu générale")
