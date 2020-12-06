@@ -49,12 +49,9 @@ class ControleurGenerale:
                                      "player2": dic_player2_match, "score_player2": match[1][1]}
                         list_dic_match.append(dic_match)
                 tournement_table = db.table('tournement')
-                tournement_table.insert({'name_tournement': tournois.name,
-                                         'location': tournois.location,
-                                         'date': tournois.date,
-                                         'nb_round': tournois.nb_round,
-                                         'time_control': tournois.time_control,
-                                         'description': tournois.description,
+                tournement_table.insert({'name_tournement': tournois.name, 'location': tournois.location,
+                                         'date': tournois.date, 'nb_round': tournois.nb_round,
+                                         'time_control': tournois.time_control, 'description': tournois.description,
                                          'list_player': list_dic_player, 'list_round': list_dic_round,
                                          'list_match': list_dic_match})
             if choice_menu_generale == 2:
