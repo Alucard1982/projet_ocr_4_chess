@@ -34,9 +34,8 @@ class Round:
     def list_player_scored(self, value):
         self._list_player_scored = value
 
-    def add_player_scored(self,player):
+    def add_player_scored(self, player):
         self._list_player_scored.append(player)
-
 
     @property
     def name(self):

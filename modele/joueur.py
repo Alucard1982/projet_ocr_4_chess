@@ -68,10 +68,11 @@ class Player:
         self._tag_player.append(player)
 
     def __repr__(self):
-        return " {} {} {} {} {} {} ".format(self._first_name,
-                                            self._last_name,
-                                            self._date_of_birth,
-                                            self._sex, self._ranking, self._tag_player, self._id_player)
+        return " {} {} {} {} {}".format(self._first_name,
+                                        self._last_name,
+                                        self._ranking,
+                                        self._id_player,
+                                        self._tag_player, )
 
     def to_dict(self):
         diction = {"first_name": self._first_name,

@@ -27,7 +27,6 @@ class ControleurTournementProgress:
         list_players = [player1, player2, player3, player4, player5, player6, player7, player8]
         return list_players
 
-
     def round1(self):
         list_players = self.create_players()
         round1 = Round("round1", str(datetime.datetime.now()))
