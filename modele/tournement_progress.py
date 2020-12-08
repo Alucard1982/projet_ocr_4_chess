@@ -5,6 +5,7 @@ class Round:
     def __init__(self, name="", star_date=None, end_date=None):
         self._list_match = []
         self._list_match_paired = []
+        self._list_player_scored = []
         self._name = name
         self._star_date = star_date
         self._end_date = end_date
@@ -24,6 +25,18 @@ class Round:
     @list_match_paired.setter
     def list_match_paired(self, value):
         self._list_match_paired = value
+
+    @property
+    def list_player_scored(self):
+        return self._list_player_scored
+
+    @list_player_scored.setter
+    def list_player_scored(self, value):
+        self._list_player_scored = value
+
+    def add_player_scored(self,player):
+        self._list_player_scored.append(player)
+
 
     @property
     def name(self):
@@ -63,18 +76,21 @@ class Round:
         return self._list_match
 
     def next_round(self):
+        for elem in self._list_match:
+            self._list_player_scored.append(elem)
         while len(self._list_match) != 0:
             i = 1
             while self._list_match[0][0].id_player in self._list_match[i][0].tag_player:
                 i = i + 1
             self._list_match_paired.append((self._list_match[0], self._list_match[i]))
-            self._list_match.remove(self._list_match[i])
-            self._list_match.remove(self._list_match[0])
+            del self._list_match[i]
+            del self._list_match[0]
 
 
 class Match(Round):
     def __init__(self):
         self._list_end_round = []
+        self._list_match = []
 
     @property
     def list_end_round(self):

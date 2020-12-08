@@ -9,6 +9,17 @@ class IhmMenu:
             return IhmMenu.saisie_int(message)
 
     @staticmethod
+    def saisie_int_nextround(message):
+
+        try:
+            while int(input(message)) != 1 or int(input(message)) != 2:
+                print("attention ce n'est pas 1 ou 2 ")
+            return int(input(message))
+        except ValueError:
+            print("attention ce n'est pas un nombre ")
+            return IhmMenu.saisie_int(message)
+
+    @staticmethod
     def saisie_string(message):
         try:
             return str(input(message))
@@ -24,8 +35,9 @@ class IhmMenu:
     def menu_generale():
         print("************WELCOME TO CHESS TOURNEMENT**************\n")
         print("1-Créer et demarrer le tournois")
-        print("2-Afficher les rapports")
-        print("3-Quitter le programme")
+        print("2-Reprendre le tournois en cours")
+        print("3-Afficher les rapports de fin de tournois")
+        print("4-Quitter le programme")
 
     @staticmethod
     def menu_entrer_joueur():
@@ -70,3 +82,8 @@ class IhmMenu:
         print("7-Liste de toutes les rounds par tournois ")
         print("8-Liste de tous les matchs par tournois")
         print("9- revenir au menu générale")
+
+    @staticmethod
+    def between_round():
+        print("1-continuer le tournois")
+        print("2-arreter le tournois et quitter le logiciel")

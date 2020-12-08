@@ -1,6 +1,7 @@
 class Player:
 
-    def __init__(self, first_name="", last_name="", date_of_birth="", sex="", ranking=None, id_player=None):
+    def __init__(self, first_name="", last_name="", date_of_birth="",
+                 sex="", ranking=None, id_player=None):
         self._first_name = first_name
         self._last_name = last_name
         self._date_of_birth = date_of_birth
@@ -70,7 +71,7 @@ class Player:
         return " {} {} {} {} {} {} ".format(self._first_name,
                                             self._last_name,
                                             self._date_of_birth,
-                                            self._sex, self._ranking, self._tag_player)
+                                            self._sex, self._ranking, self._tag_player, self._id_player)
 
     def to_dict(self):
         diction = {"first_name": self._first_name,
@@ -78,5 +79,6 @@ class Player:
                    "date_of_birth": self._date_of_birth,
                    "sex": self._sex,
                    "ranking": self._ranking,
-                   "tag_player": self._tag_player}
+                   "tag_player": self._tag_player,
+                   "id_player": self._id_player}
         return diction
