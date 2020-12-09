@@ -3,6 +3,10 @@ from operator import itemgetter
 
 class Round:
     def __init__(self, name="", star_date=None, end_date=None):
+        """
+        Constructeur de la classe Round qui permet d'utiliser les attributs à l'instanciation
+        de la classe Round
+        """
         self._list_match = []
         self._list_match_paired = []
         self._list_player_scored = []
@@ -10,6 +14,7 @@ class Round:
         self._star_date = star_date
         self._end_date = end_date
 
+    # getteur et setteur
     @property
     def list_match(self):
         return self._list_match
@@ -62,9 +67,20 @@ class Round:
         self._end_date = value
 
     def __repr__(self):
+        """
+        Méthode de la classe Round qui permet l'affichage de l'objet Round
+        :return: les attributs de l'objet qu'on veut afficher
+        """
         return " {} {} {}".format(self._name, self._star_date, self._end_date)
 
     def first_round(self, list_players):
+        """
+        Méthode de la classe Round qui permet de trier une list de joueur en fonction du classement au 1 round
+        d'un tournois suisse . Créer des Paires de joueurs pour chaque match, toujours en fonction du systeme suisse
+        pour le 1er round.
+        :param list_players: la list des joueur du tournois
+        :return: une list de match.Un match equivaux à deux joueurs
+        """
         list_player_sorted = (sorted(list_players, key=lambda player: player.ranking, reverse=True))
         list_players_strong = list_player_sorted[:4]
         list_players_weak = list_player_sorted[-4:]
@@ -75,6 +91,11 @@ class Round:
         return self._list_match
 
     def next_round(self):
+        """
+        Méthode de la classe Round qui permet de pairer les joueurs par match en fonction du système suisse .
+        Un joueur ne peux pas rejouer contre un autre joueur.Cette méthode s'applique
+        pour tout les rounds du tournois excepter le round 1.
+        """
         for elem in self._list_match:
             self._list_player_scored.append(elem)
         while len(self._list_match) != 0:
@@ -86,11 +107,16 @@ class Round:
             del self._list_match[0]
 
 
-class Match(Round):
+class Match:
     def __init__(self):
+        """
+        Constructeur de la classe Match
+        Permet de pouvoir utiliser les attributs à l'instanciation de la classe Macth
+        """
         self._list_end_round = []
         self._list_match = []
 
+    # getteur et setteur
     @property
     def list_end_round(self):
         return self._list_end_round
@@ -111,6 +137,12 @@ class Match(Round):
             return self._saisie_int(message)
 
     def score_match(self):
+        """
+        Méthode de la classe Match permet d'appliquer un score à chaque joueur de chaque match.
+        Elle va aussi permettre de de tagger le player avec l'id_player pour pouvoir savoir si un joueur
+        a deja joué contre un autre.
+        :return: une list de joueur classé par point et par classement
+        """
         list_scored_player = []
         i = 0
         for player1_score, player2_score in self._list_match:

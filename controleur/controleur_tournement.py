@@ -10,11 +10,20 @@ import datetime
 class ControleurTournementProgress:
 
     def __init__(self):
+        """
+        Constructeur de la classe ControleurTournementProgress
+        Permet d'utiliser les attributs à l'instanciation de la classe ControleurTournementProgress
+        """
         self._gestion_match = Match()
         self._gestion_tournement = Tournement()
         self._ihm = IhmMenu
 
     def create_players(self):
+        """
+        Méthode de la classe ControleurTournementProgress
+        permet la création d'objets Player
+        :return: une liste d'objet Player
+        """
         player1 = Player("aojo1", "dubois", "14mai", "male", 1800, 1)
         player2 = Player("bojo2", "dubois", "14mai", "male", 1400, 2)
         player3 = Player("cojo3", "dubois", "14mai", "male", 1500, 3)
@@ -28,6 +37,11 @@ class ControleurTournementProgress:
         return list_players
 
     def round1(self):
+        """
+        Méthode de la classe ControleurTournementProgress
+        Permet le deroulement du permier round du tournois suisse
+        :return: l'objet round qui est le premier round du tournois
+        """
         list_players = self.create_players()
         round1 = Round("round1", str(datetime.datetime.now()))
         match_paired = round1.first_round(list_players)
@@ -39,6 +53,13 @@ class ControleurTournementProgress:
         return round1
 
     def more_round(self, round1):
+        """
+        Méthode de la classe ControleurTournementProgress
+        Permet le déroulement de chaque round jusqu à la fin du tournois
+        Excepté pour le round 1
+        :param round1:
+        :return: La liste de tous les objets rounds du tournois
+        """
         list_rounds = [round1]
         for i in range(self._gestion_tournement.nb_round - 1):
             self._ihm.print_string("*******************ROUND NEXT******************\n")
@@ -53,15 +74,33 @@ class ControleurTournementProgress:
         return list_rounds
 
     def to_object_player(self, dic):
+        """
+        Méthode de la classe ControleurTournementProgress
+        Transforme un dictionnaire Player en objet Player
+        :param dic: dictionnaire de Player
+        :return:un objet player
+        """
         player = Player(dic['first_name'], dic['last_name'], dic['date_of_birth'], dic['sex'],
                         dic['ranking'], dic['id_player'])
         return player
 
     def to_object_round(self, dic):
+        """
+        Méthode de la classe ControleurTournementProgress
+        Transforme un dictionnaire Round en objet Round
+        :param dic: dictionnaire Round
+        :return: un objet Round
+        """
         round = Round(dic['name'], dic['start_date'], dic['end_date'])
         return round
 
     def push_tinydb(self, list_rounds, round):
+        """
+        Méthode de la classe ControleurTournementProgress
+        permet de rentrer les données des player avec leur scores ainsi que les rounds dans tinyDb
+        :param list_rounds: list de tout les round joué
+        :param round: le dernier round joué
+        """
         list_dic_player_rank = []
         list_dic_round = []
         db = TinyDB('db.json')
@@ -79,6 +118,14 @@ class ControleurTournementProgress:
         round_table.insert({'nb_round': list_dic_round})
 
     def more_round_test(self, round1):
+        """
+        Méthode de la classe ControleurTournementProgress
+        Permet le déroulement de chaque round jusqu à la fin du tournois
+        excepté pour le round 1
+        On peut arreter le tournois en cours
+        :param round1:
+        :return: La liste de tous les objets rounds du tournois
+        """
         list_rounds = [round1]
         for i in range(self._gestion_tournement.nb_round - 1):
             self._ihm.print_string("*******************ROUND NEXT******************\n")
@@ -99,6 +146,12 @@ class ControleurTournementProgress:
         return list_rounds
 
     def resume_tournement(self):
+        """
+        Méthode de la classe ControleurTournementProgress
+        Permet de reprendre le tournois à l'état ou on l'a quitter et de finir le tournois
+        Ici on récupere les données dans TinyDb pour la suite du tournois
+        :return: la lists de tous les objets rounds du tournois
+        """
 
         list_rank_player = []
         list_rounds = []

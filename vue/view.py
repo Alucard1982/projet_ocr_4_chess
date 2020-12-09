@@ -2,6 +2,11 @@ class IhmMenu:
 
     @staticmethod
     def saisie_int(message):
+        """
+        Méthode qui permet de verouiller les saisies int
+        :param message: le message écrit
+        :return: la saisie en int
+        """
         try:
             return int(input(message))
         except ValueError:
@@ -10,6 +15,12 @@ class IhmMenu:
 
     @staticmethod
     def saisie_int_nextround(message):
+        """
+        Méthode de la classe IhmMenu qui permet de verouiller les saisies
+        entre les rounds
+        :param message: le message ecrit
+        :return: la saisie en int
+        """
 
         try:
             while int(input(message)) != 1 or int(input(message)) != 2:
@@ -29,10 +40,17 @@ class IhmMenu:
 
     @staticmethod
     def print_string(message):
+        """
+        Méthode de la classe IhmMenu pour afficher des messages
+        :param message: le message écrit
+        """
         print(message)
 
     @staticmethod
     def menu_generale():
+        """
+        méthode de la classe IhmMenu qui permet d'afficher le menu générale
+        """
         print("************WELCOME TO CHESS TOURNEMENT**************\n")
         print("1-Créer et demarrer le tournois")
         print("2-Reprendre le tournois en cours")
@@ -41,6 +59,9 @@ class IhmMenu:
 
     @staticmethod
     def menu_entrer_joueur():
+        """
+        Méthode de la classe IhmMenu qui permet d'afficher les inputs des Players
+        """
         print("***************RENTRER LES JOUEURS*************")
         choix_joueur_nom = IhmMenu.saisie_string("1-Entrer le Prenom du joueur\n")
         choix_joueur_prenom = IhmMenu.saisie_string("2-Entrer le Nom du joueur\n")
@@ -55,6 +76,9 @@ class IhmMenu:
 
     @staticmethod
     def menu_description_tournement():
+        """
+        Méthode de la classe IhmMenu qui permet d'afficher les inputs du tournois
+        """
         print("******************WELCOME TO THE TOURNEMENT SOFTWARE********************\n")
         choix_tournois_nom = IhmMenu.saisie_string("1-Entrer le nom du tournois\n")
         choix_tournois_lieu = IhmMenu.saisie_string("2-Entrer le lieu du tournois\n")
@@ -70,6 +94,10 @@ class IhmMenu:
 
     @staticmethod
     def menu_rapport():
+        """
+        Méthode de la classe IhmMenu qui permet d'afficher la première
+        partie du rapport
+        """
         print("1-Liste de tous les joueurs par ordre alphabétique")
         print("2-Liste de tous les joueurs par classement")
         print("3-Liste de tous les joueurs par tournois par ordre alphabétique")
@@ -78,6 +106,10 @@ class IhmMenu:
 
     @staticmethod
     def menu_rapport_2():
+        """
+        Méthode de la classe IhmMenu qui permet d'afficher la deuxième
+        partie du rapport
+        """
         print("6-Liste de tous les tournois ")
         print("7-Liste de toutes les rounds par tournois ")
         print("8-Liste de tous les matchs par tournois")
@@ -85,5 +117,9 @@ class IhmMenu:
 
     @staticmethod
     def between_round():
+        """
+        Méthode de la classe IhmMenu qui permet d'afficher le menu
+        entre chaque round
+        """
         print("1-continuer le tournois")
         print("2-arreter le tournois et quitter le logiciel")

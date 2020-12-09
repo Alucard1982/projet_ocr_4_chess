@@ -2,6 +2,10 @@ class Player:
 
     def __init__(self, first_name="", last_name="", date_of_birth="",
                  sex="", ranking=None, id_player=None):
+        """
+        Constructeur de la classe Player
+         Permet d'utiliser les attributs à l'instenciation de la classe Player
+        """
         self._first_name = first_name
         self._last_name = last_name
         self._date_of_birth = date_of_birth
@@ -10,6 +14,7 @@ class Player:
         self._id_player = id_player
         self._tag_player = []
 
+    # getteur et setteur
     @property
     def first_name(self):
         return self._first_name
@@ -68,6 +73,10 @@ class Player:
         self._tag_player.append(player)
 
     def __repr__(self):
+        """
+        Méthode de la classe Player qui permet d'afficher l'objet
+        :return: les attributs de l'objet qu'on veut afficher
+        """
         return " {} {} {} {} {}".format(self._first_name,
                                         self._last_name,
                                         self._ranking,
@@ -75,6 +84,10 @@ class Player:
                                         self._tag_player, )
 
     def to_dict(self):
+        """
+        Méthode de la classe player qui permet de sérialiser l'objet Player
+        :return: un dictionnaire de l'objet Player
+        """
         diction = {"first_name": self._first_name,
                    "last_name": self._last_name,
                    "date_of_birth": self._date_of_birth,

@@ -1,8 +1,10 @@
-
 class Tournement:
 
     def __init__(self, name="", location="", date="", time_control="", description=""):
-
+        """
+        Constructeur de la classe Tournement qui va permettre d'utiliser les attributs
+        à l'instanciation de la class Tournement.
+        """
         self._name = name
         self._location = location
         self._date = date
@@ -12,6 +14,7 @@ class Tournement:
         self._time_control = time_control
         self._description = description
 
+    # getteur et setteur
     @property
     def name(self):
         return self._name
@@ -71,6 +74,10 @@ class Tournement:
         self._description = value
 
     def __repr__(self):
+        """
+        Méthode d'affiche de l'objet Tournement
+        :return: les attributs de l'objet qu'on veut afficher
+        """
         return " {} {} {} {} {} {}".format(self._name,
                                            self._location,
                                            self._date,

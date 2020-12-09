@@ -11,12 +11,22 @@ class ControleurGenerale:
         self._ihm = IhmMenu()
 
     def _chess_tournement(self):
+        """
+        Méthode de l'objet ControleurGenerale qui fait le déroulement du tournois suisse
+        retrun: la liste de tous les rounds du tournois
+        """
         self._ihm.print_string("*******************ROUND1******************\n")
         round1 = self._tournement_progress.round1()
         list_rounds = self._tournement_progress.more_round_test(round1)
         return list_rounds
 
     def _insert_report(self, list_players, tournois, list_rounds):
+        """
+        Méthode l'objet ControleurGenerale qui permet de mettre les données de tout le tournois dans tinyDB
+        :param list_players: list de player
+        :param tournois: l'objet tournois
+        :param list_rounds:  liste des rounds
+        """
         db = TinyDB('db.json')
         players_table = db.table('players')
         list_dic_player = []
@@ -46,6 +56,10 @@ class ControleurGenerale:
                                  'list_match': list_dic_match})
 
     def tournement_software(self):
+        """
+        Méthode principale de l'objet ControleurGenerale
+        qui regroupe le menu,les rapports , et le déroulement du tournois
+        """
         boole = True
         while boole:
             self._ihm.menu_generale()

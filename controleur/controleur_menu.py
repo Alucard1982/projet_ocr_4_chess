@@ -7,11 +7,20 @@ from operator import itemgetter
 
 class ControleurMenu:
     def __init__(self):
+        """
+        Constructeur de la classe ControleurMenu
+        Permet d'utiliser les attributs à l'instenciation de la classe ControleurMenu
+        """
         self._ihm = IhmMenu()
         self._tournement = Tournement()
         self._player = Player()
 
     def description_tournement(self):
+        """
+        Méthode de la classe ControleurMenu
+        Permet de rentrer les données du tournois
+        :return:l'objet tournois
+        """
         list_choix_tournement = self._ihm.menu_description_tournement()
         if list_choix_tournement[0]:
             self._tournement.name = list_choix_tournement[0]
@@ -26,6 +35,11 @@ class ControleurMenu:
         return self._tournement
 
     def description_player(self):
+        """
+        Méthode de la classe ControleurMenu
+        Permet de rentrer les données des players
+        :return: une liste d'objet player
+        """
         list_players = []
         for i in range(8):
             player = Player()
@@ -46,6 +60,11 @@ class ControleurMenu:
         return list_players
 
     def report_first_part(self):
+        """
+        Méthode de la classe ControleurMenu
+        Première partie du rapport de fin tournois
+        Choix en fonction du menu rapport
+        """
         boole = True
         db = TinyDB('db.json')
         players_table = db.table('players')
@@ -79,6 +98,11 @@ class ControleurMenu:
                 boole = False
 
     def report_second_part(self):
+        """
+        Méthode de la classe ControleurMenu
+        Deuxième partie du rapport de fin de tournois
+        Choix en fonction du menu rapport
+        """
         boole = True
         while boole:
             self._ihm.menu_rapport_2()
