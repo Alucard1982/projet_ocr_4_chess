@@ -14,17 +14,16 @@ class IhmMenu:
             return IhmMenu.saisie_int(message)
 
     @staticmethod
-    def saisie_int_nextround(message):
+    def saisie_int_next_round(message):
         """
         Méthode de la classe IhmMenu qui permet de verouiller les saisies
         entre les rounds
         :param message: le message ecrit
         :return: la saisie en int
         """
-
         try:
-            while int(input(message)) != 1 or int(input(message)) != 2:
-                print("attention ce n'est pas 1 ou 2 ")
+            """while int(input(message)) != 1 or int(input(message)) != 2:
+                print("attention ce n'est pas 1 ou 2 ")"""
             return int(input(message))
         except ValueError:
             print("attention ce n'est pas un nombre ")

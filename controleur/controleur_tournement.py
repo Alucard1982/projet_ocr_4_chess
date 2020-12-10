@@ -21,7 +21,7 @@ class ControleurTournementProgress:
     def create_players(self):
         """
         Méthode de la classe ControleurTournementProgress
-        permet la création d'objets Player
+        permet la création d'objets Player automatique
         :return: une liste d'objet Player
         """
         player1 = Player("aojo1", "dubois", "14mai", "male", 1800, 1)
@@ -36,13 +36,35 @@ class ControleurTournementProgress:
         list_players = [player1, player2, player3, player4, player5, player6, player7, player8]
         return list_players
 
-    def round1(self):
+    def to_object_player(self, dic):
+        """
+        Méthode de la classe ControleurTournementProgress
+        Transforme un dictionnaire Player en objet Player
+        :param dic: dictionnaire de Player
+        :return:un objet player
+        """
+        player = Player(dic['first_name'], dic['last_name'], dic['date_of_birth'], dic['sex'],
+                        dic['ranking'], dic['id_player'])
+        player.tag_player = dic['tag_player']
+        return player
+
+    def to_object_round(self, dic):
+        """
+        Méthode de la classe ControleurTournementProgress
+        Transforme un dictionnaire Round en objet Round
+        :param dic: dictionnaire Round
+        :return: un objet Round
+        """
+        round = Round(dic['name'], dic['start_date'], dic['end_date'])
+        return round
+
+    def round1(self, list_players):
         """
         Méthode de la classe ControleurTournementProgress
         Permet le deroulement du permier round du tournois suisse
+        :param:liste de player
         :return: l'objet round qui est le premier round du tournois
         """
-        list_players = self.create_players()
         round1 = Round("round1", str(datetime.datetime.now()))
         match_paired = round1.first_round(list_players)
         self._ihm.print_string(round1.list_match)
@@ -56,45 +78,84 @@ class ControleurTournementProgress:
         """
         Méthode de la classe ControleurTournementProgress
         Permet le déroulement de chaque round jusqu à la fin du tournois
-        Excepté pour le round 1
+        excepté pour le round 1
+        On peut arreter le tournois en cours
         :param round1:
         :return: La liste de tous les objets rounds du tournois
         """
         list_rounds = [round1]
         for i in range(self._gestion_tournement.nb_round - 1):
             self._ihm.print_string("*******************ROUND NEXT******************\n")
-            round = Round("round" + str(i), str(datetime.datetime.now()))
+            round = Round("round" + str(i + 2), str(datetime.datetime.now()))
             round.list_match = self._gestion_match.list_end_round
             round.next_round()
+            self._ihm.between_round()
+            choice_between_round = self._ihm.saisie_int_next_round(" Choisissez une action : --> ")
+            if choice_between_round == 1:
+                self._ihm.print_string(round.list_match_paired)
+                self._gestion_match.list_match = round.list_match_paired
+                self._ihm.print_string(self._gestion_match.score_match())
+                round.end_date = str(datetime.datetime.now())
+                list_rounds.append(round)
+            if choice_between_round == 2:
+                self._push_tinydb(list_rounds, round)
+                break
+        if len(list_rounds) == 4:
+            self.insert_report(list_rounds)
+
+    def resume_tournement(self):
+        """
+        Méthode de la classe ControleurTournementProgress
+        Permet de reprendre le tournois à l'état ou on l'a quitter et de finir le tournois
+        Ici on récupere les données dans TinyDb pour la suite du tournois
+        :return: la lists de tous les objets rounds du tournois
+        """
+        list_rank_player = []
+        list_rounds = []
+        db = TinyDB('db.json')
+        match_table = db.table('match_rank')
+        round_table = db.table('round')
+        dic_player_rank = match_table.all()
+        try:
+            dic_player_score = dic_player_rank[0]['player_scored']
+        except IndexError:
+            print("IL N Y A PAS DE TOURNOIS EN COURS!!!!!")
+            return
+        for elem in dic_player_score:
+            list_rank_player.append([self.to_object_player(elem['player1']), elem["score_player1"]])
+        match_table.truncate()
+        dic_round = round_table.all()
+        dic_round_description = dic_round[0]['nb_round']
+        for elem in dic_round_description:
+            list_rounds.append(self.to_object_round(elem))
+        round_table.truncate()
+        nb_real_round = self._gestion_tournement.nb_round - (len(list_rounds))
+        self._ihm.print_string("************** Il reste " + str(nb_real_round) +
+                               " rounds avant la fin du tournois************")
+        self._ihm.print_string(list_rank_player)
+        for i in range(nb_real_round):
+            self._ihm.print_string("*******************ROUND NEXT******************\n")
+            round = Round("round_next", str(datetime.datetime.now()))
+            if i == 0:
+                round.list_match = list_rank_player
+            else:
+                round.list_match = self._gestion_match.list_end_round
+            round.next_round()
+            self._ihm.between_round()
+            choice_between_round = self._ihm.saisie_int_next_round(" Choisissez une action : --> ")
             self._ihm.print_string(round.list_match_paired)
-            self._gestion_match.list_match = round.list_match_paired
-            self._ihm.print_string(self._gestion_match.score_match())
-            round.end_date = str(datetime.datetime.now())
-            list_rounds.append(round)
-        return list_rounds
+            if choice_between_round == 1:
+                self._gestion_match.list_match = round.list_match_paired
+                self._ihm.print_string(self._gestion_match.score_match())
+                round.end_date = str(datetime.datetime.now())
+                list_rounds.append(round)
+            if choice_between_round == 2:
+                self._push_tinydb(list_rounds, round)
+                break
+        if len(list_rounds) == 4:
+            self.insert_report(list_rounds)
 
-    def to_object_player(self, dic):
-        """
-        Méthode de la classe ControleurTournementProgress
-        Transforme un dictionnaire Player en objet Player
-        :param dic: dictionnaire de Player
-        :return:un objet player
-        """
-        player = Player(dic['first_name'], dic['last_name'], dic['date_of_birth'], dic['sex'],
-                        dic['ranking'], dic['id_player'])
-        return player
-
-    def to_object_round(self, dic):
-        """
-        Méthode de la classe ControleurTournementProgress
-        Transforme un dictionnaire Round en objet Round
-        :param dic: dictionnaire Round
-        :return: un objet Round
-        """
-        round = Round(dic['name'], dic['start_date'], dic['end_date'])
-        return round
-
-    def push_tinydb(self, list_rounds, round):
+    def _push_tinydb(self, list_rounds, round):
         """
         Méthode de la classe ControleurTournementProgress
         permet de rentrer les données des player avec leur scores ainsi que les rounds dans tinyDb
@@ -117,76 +178,28 @@ class ControleurTournementProgress:
             list_dic_round.append(dic_round)
         round_table.insert({'nb_round': list_dic_round})
 
-    def more_round_test(self, round1):
+    def insert_report(self, list_rounds):
         """
-        Méthode de la classe ControleurTournementProgress
-        Permet le déroulement de chaque round jusqu à la fin du tournois
-        excepté pour le round 1
-        On peut arreter le tournois en cours
-        :param round1:
-        :return: La liste de tous les objets rounds du tournois
+        Méthode l'objet ControleurGenerale qui permet de mettre les données de tout le tournois dans tinyDB
+        :param list_players: list de player
+        :param tournois: l'objet tournois
+        :param list_rounds:  liste des rounds
         """
-        list_rounds = [round1]
-        for i in range(self._gestion_tournement.nb_round - 1):
-            self._ihm.print_string("*******************ROUND NEXT******************\n")
-            round = Round("round" + str(i), str(datetime.datetime.now()))
-            round.list_match = self._gestion_match.list_end_round
-            round.next_round()
-            self._ihm.between_round()
-            choice_between_round = self._ihm.saisie_int_nextround(" Choisissez une action : --> ")
-            if choice_between_round == 1:
-                self._ihm.print_string(round.list_match_paired)
-                self._gestion_match.list_match = round.list_match_paired
-                self._ihm.print_string(self._gestion_match.score_match())
-                round.end_date = str(datetime.datetime.now())
-                list_rounds.append(round)
-            if choice_between_round == 2:
-                self.push_tinydb(list_rounds, round)
-                break
-        return list_rounds
-
-    def resume_tournement(self):
-        """
-        Méthode de la classe ControleurTournementProgress
-        Permet de reprendre le tournois à l'état ou on l'a quitter et de finir le tournois
-        Ici on récupere les données dans TinyDb pour la suite du tournois
-        :return: la lists de tous les objets rounds du tournois
-        """
-
-        list_rank_player = []
-        list_rounds = []
+        list_dic_round = []
+        list_dic_match = []
         db = TinyDB('db.json')
-        match_table = db.table('match_rank')
-        round_table = db.table('round')
-        dic_player_rank = match_table.all()
-        dic_player_score = dic_player_rank[0]['player_scored']
-        for elem in dic_player_score:
-            list_rank_player.append([self.to_object_player(elem['player1']), elem["score_player1"]])
-        dic_round = round_table.all()
-        dic_round_description = dic_round[0]['nb_round']
-        for elem in dic_round_description:
-            list_rounds.append(self.to_object_round(elem))
-        nb_real_round = self._gestion_tournement.nb_round - (len(list_rounds))
-        self._ihm.print_string("************** Il reste " + str(nb_real_round) +
-                               " rounds avant la fin du tournois************")
-        self._ihm.print_string(list_rank_player)
-        for i in range(nb_real_round):
-            self._ihm.print_string("*******************ROUND NEXT******************\n")
-            round = Round("round" + str(i), str(datetime.datetime.now()))
-            if i == 0:
-                round.list_match = list_rank_player
-            else:
-                round.list_match = self._gestion_match.list_end_round
-            round.next_round()
-            self._ihm.between_round()
-            choice_between_round = self._ihm.saisie_int_nextround(" Choisissez une action : --> ")
-            self._ihm.print_string(round.list_match_paired)
-            if choice_between_round == 1:
-                self._gestion_match.list_match = round.list_match_paired
-                self._ihm.print_string(self._gestion_match.score_match())
-                round.end_date = str(datetime.datetime.now())
-                list_rounds.append(round)
-            if choice_between_round == 2:
-                self.push_tinydb(list_rounds, round)
-                break
-        return list_rounds
+        players_by_tournement = db.table('player_by_tournement')
+        list_dic_player = players_by_tournement.all()
+        for rounde in list_rounds:
+            dic_round = {'name_round': rounde.name, "start_date": rounde.star_date,
+                         "end_date": rounde.end_date}
+            list_dic_round.append(dic_round)
+            for match in rounde.list_match_paired:
+                dic_player1_match = match[0][0].to_dict()
+                dic_player2_match = match[1][0].to_dict()
+                dic_match = {"player1": dic_player1_match, "score_player1": match[0][1],
+                             "player2": dic_player2_match, "score_player2": match[1][1]}
+                list_dic_match.append(dic_match)
+        tournement_table = db.table('tournement')
+        tournement_table.insert({'list_player': list_dic_player, 'list_round': list_dic_round,
+                                 'list_match': list_dic_match})

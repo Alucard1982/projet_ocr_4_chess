@@ -69,6 +69,10 @@ class Player:
     def tag_player(self):
         return self._tag_player
 
+    @tag_player.setter
+    def tag_player(self, value):
+        self._tag_player = value
+
     def add_oppenent(self, player):
         self._tag_player.append(player)
 

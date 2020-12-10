@@ -13,7 +13,6 @@ class ControleurMenu:
         """
         self._ihm = IhmMenu()
         self._tournement = Tournement()
-        self._player = Player()
 
     def description_tournement(self):
         """
@@ -45,18 +44,19 @@ class ControleurMenu:
             player = Player()
             list_choix = self._ihm.menu_entrer_joueur()
             if list_choix[0]:
-                self._player.first_name = list_choix[0]
+                player.first_name = list_choix[0]
             if list_choix[1]:
-                self._player.last_name = list_choix[1]
+                player.last_name = list_choix[1]
             if list_choix[2]:
-                self._player.date_of_birth = list_choix[2]
+                player.date_of_birth = list_choix[2]
             if list_choix[3]:
-                self._player.sex = list_choix[3]
+                player.sex = list_choix[3]
             if list_choix[4]:
-                self._player.ranking = list_choix[4]
+                player.ranking = list_choix[4]
             if list_choix[5]:
-                self._player.id_player = list_choix[5]
+                player.id_player = list_choix[5]
             list_players.append(player)
+        print(list_players)
         return list_players
 
     def report_first_part(self):
@@ -67,30 +67,33 @@ class ControleurMenu:
         """
         boole = True
         db = TinyDB('db.json')
-        players_table = db.table('players')
-        tournement_table = db.table('tournement')
         while boole:
+            all_players_table = db.table('all_players')
+            tournement_table = db.table('tournement')
+            tournement_description = db.table('tournement_description')
             self._ihm.menu_rapport()
             choice_menu_report = self._ihm.saisie_int(" Choisissez une action : --> ")
             if choice_menu_report == 1:
-                list_players = sorted(players_table.all(), key=itemgetter('first_name'))
+                list_players = sorted(all_players_table.all(), key=itemgetter('first_name'))
                 for player in list_players:
                     self._ihm.print_string(player)
             if choice_menu_report == 2:
-                list_players = sorted(players_table.all(), key=itemgetter('ranking'), reverse=True)
+                list_players = sorted(all_players_table.all(), key=itemgetter('ranking'), reverse=True)
                 for player in list_players:
                     self._ihm.print_string(player)
             if choice_menu_report == 3:
+                tournement_description = tournement_description.all()
                 tournois = tournement_table.all()
                 for i in range(len(tournois)):
-                    self._ihm.print_string("Tournement " + tournois[i]['name_tournement'] + ":")
+                    self._ihm.print_string("Tournement " + tournement_description[i]['name_tournement'] + ":")
                     list_players = sorted(tournois[i]['list_player'], key=itemgetter('first_name'))
                     for player in list_players:
                         self._ihm.print_string(player)
             if choice_menu_report == 4:
+                tournement_description = tournement_description.all()
                 tournois = tournement_table.all()
                 for i in range(len(tournois)):
-                    self._ihm.print_string("Tournement " + tournois[i]['name_tournement'] + ":")
+                    self._ihm.print_string("Tournement " + tournement_description[i]['name_tournement'] + ":")
                     list_players = sorted(tournois[i]['list_player'], key=itemgetter('ranking'), reverse=True)
                     for player in list_players:
                         self._ihm.print_string(player)
@@ -108,25 +111,30 @@ class ControleurMenu:
             self._ihm.menu_rapport_2()
             db = TinyDB('db.json')
             tournement_table = db.table('tournement')
+            tournement_description = db.table('tournement_description')
             choice_menu_report = self._ihm.saisie_int(" Choisissez une action : --> ")
             if choice_menu_report == 6:
-                tournois = tournement_table.all()
-                for i in range(len(tournois)):
+                tournement_description = tournement_description.all()
+                for i in range(len(tournement_description)):
                     self._ihm.print_string(
-                        tournois[i]['name_tournement'] + "," + tournois[i]['location'] + "," + tournois[i]['date'] +
-                        str(tournois[i]['nb_round']) + "," + tournois[i]['time_control'] + "," +
-                        tournois[i]['description'])
+                        tournement_description[i]['name_tournement'] + "," + tournement_description[i]['location'] +
+                        "," + tournement_description[i]['date'] +
+                        "," + str(tournement_description[i]['nb_round']) +
+                        "," + tournement_description[i]['time_control'] +
+                        "," + tournement_description[i]['description'])
             if choice_menu_report == 7:
                 tournois = tournement_table.all()
+                tournement_description = tournement_description.all()
                 for i in range(len(tournois)):
-                    self._ihm.print_string("Tournement " + tournois[i]['name_tournement'] + ":")
+                    self._ihm.print_string("Tournement " + tournement_description[i]['name_tournement'] + ":")
                     list_rounds = tournois[i]['list_round']
                     for round in list_rounds:
                         self._ihm.print_string(round)
             if choice_menu_report == 8:
                 tournois = tournement_table.all()
+                tournement_description = tournement_description.all()
                 for i in range(len(tournois)):
-                    self._ihm.print_string("Tournement " + tournois[i]['name_tournement'] + ":")
+                    self._ihm.print_string("Tournement " + tournement_description[i]['name_tournement'] + ":")
                     list_match = tournois[i]['list_match']
                     for match in list_match:
                         self._ihm.print_string(match)
