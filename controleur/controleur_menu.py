@@ -1,9 +1,9 @@
-from vue.view import IhmMenu
+from configparser import ConfigParser
 from modele.joueur import Player
 from modele.tournois import Tournement
-from tinydb import TinyDB
 from operator import itemgetter
-from configparser import ConfigParser
+from tinydb import TinyDB
+from vue.view import IhmMenu
 
 
 class ControleurMenu:

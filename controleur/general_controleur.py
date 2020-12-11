@@ -1,7 +1,7 @@
-from controleur.controleur_tournement import ControleurTournementProgress
 from controleur.controleur_menu import ControleurMenu
+from controleur.controleur_tournement import ControleurTournementProgress
+from modele.data_base import DataTiny
 from vue.view import IhmMenu
-from tinydb import TinyDB
 
 
 class ControleurGenerale:
@@ -9,6 +9,7 @@ class ControleurGenerale:
         self._menu = ControleurMenu()
         self._tournement_progress = ControleurTournementProgress()
         self._ihm = IhmMenu()
+        self._data_tiny = DataTiny()
 
     def _chess_tournement(self, list_players):
         """
@@ -18,7 +19,6 @@ class ControleurGenerale:
         self._ihm.print_string("*******************ROUND1******************\n")
         round1 = self._tournement_progress.round1(list_players)
         self._tournement_progress.more_round(round1)
-
 
     def tournement_software(self):
         """
@@ -30,24 +30,11 @@ class ControleurGenerale:
             self._ihm.menu_generale()
             choice_menu_generale = self._ihm.saisie_int(" Choisissez une action : --> ")
             if choice_menu_generale == 1:
-                db = TinyDB('db.json')
-                all_players_table = db.table('all_players')
-                player_by_tournement = db.table('player_by_tournement')
-                player_by_tournement.truncate()
-                tournement_description = db.table('tournement')
                 tournois = self._menu.description_tournement()
+                # choix entre joueurs automatiques ou joueurs rentrés à la main
                 list_players = self._tournement_progress.create_players()
-                #list_players = self._menu.description_player()
-                for player in list_players:
-                    tournois.add_player(player)
-                    player_dic = player.to_dict()
-                    if player_dic not in all_players_table:
-                        all_players_table.insert(player_dic)
-                    player_by_tournement.insert(player_dic)
-                tournement_description.insert({'name_tournement': tournois.name, 'location': tournois.location,
-                                               'date': tournois.date, 'nb_round': tournois.nb_round,
-                                               'time_control': tournois.time_control,
-                                               'description': tournois.description})
+                # list_players = self._menu.description_player()
+                self._data_tiny.insert_player_and_tournement(list_players, tournois)
                 self._chess_tournement(list_players)
             if choice_menu_generale == 2:
                 self._tournement_progress.resume_tournement()

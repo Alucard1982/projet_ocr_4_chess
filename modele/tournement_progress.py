@@ -115,16 +115,11 @@ class Match:
         Permet de pouvoir utiliser les attributs à l'instanciation de la classe Macth
         """
         self._list_end_round = []
-        self._real_list_match_paired = []
 
     # getteur et setteur
     @property
     def list_end_round(self):
         return self._list_end_round
-
-    @property
-    def real_list_match_paired(self):
-        return self._real_list_match_paired
 
     def _saisie_int(self, message):
         try:
@@ -142,8 +137,6 @@ class Match:
         """
         list_scored_player = []
         i = 0
-        for elem in match_paired:
-            print(elem)
         for player1_score, player2_score in match_paired:
             i = i + 1
             choix_joueur1 = self._saisie_int("Rentrer le score du du joueur1 du match" + str(i) + "\n")
@@ -158,7 +151,6 @@ class Match:
             player2_score[0].add_oppenent(player1_score[0].id_player)
             list_scored_player.append(player1_score)
             list_scored_player.append(player2_score)
-
         list_scored_player_sorted = (sorted(list_scored_player, key=lambda player: player[0].ranking, reverse=True))
         self._list_end_round = (sorted(list_scored_player_sorted, key=itemgetter(1), reverse=True))
         return self._list_end_round
