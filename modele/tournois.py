@@ -1,3 +1,6 @@
+from configparser import ConfigParser
+
+
 class Tournement:
 
     def __init__(self, name="", location="", date="", time_control="", description=""):
@@ -5,10 +8,13 @@ class Tournement:
         Constructeur de la classe Tournement qui va permettre d'utiliser les attributs
         à l'instanciation de la class Tournement.
         """
+        parser = ConfigParser()
+        parser.read('setup.cfg')
+        nb_rounds = parser.get('TOURNEMENT', 'nb_rounds')
         self._name = name
         self._location = location
         self._date = date
-        self._nb_round = 4
+        self._nb_round = int(nb_rounds)
         self._list_round = []
         self._list_players = []
         self._time_control = time_control

@@ -3,6 +3,7 @@ from modele.joueur import Player
 from modele.tournois import Tournement
 from tinydb import TinyDB
 from operator import itemgetter
+from configparser import ConfigParser
 
 
 class ControleurMenu:
@@ -40,7 +41,10 @@ class ControleurMenu:
         :return: une liste d'objet player
         """
         list_players = []
-        for i in range(8):
+        parser = ConfigParser()
+        parser.read('setup.cfg')
+        nb_players = parser.get('TOURNEMENT', 'nb_players')
+        for i in range(int(nb_players)):
             player = Player()
             list_choix = self._ihm.menu_entrer_joueur()
             if list_choix[0]:
@@ -70,7 +74,6 @@ class ControleurMenu:
         while boole:
             all_players_table = db.table('all_players')
             tournement_table = db.table('tournement')
-            tournement_description = db.table('tournement_description')
             self._ihm.menu_rapport()
             choice_menu_report = self._ihm.saisie_int(" Choisissez une action : --> ")
             if choice_menu_report == 1:
@@ -78,22 +81,21 @@ class ControleurMenu:
                 for player in list_players:
                     self._ihm.print_string(player)
             if choice_menu_report == 2:
-                list_players = sorted(all_players_table.all(), key=itemgetter('ranking'), reverse=True)
+                players = all_players_table.all()
+                list_players = sorted(players, key=itemgetter('ranking'), reverse=True)
                 for player in list_players:
                     self._ihm.print_string(player)
             if choice_menu_report == 3:
-                tournement_description = tournement_description.all()
                 tournois = tournement_table.all()
                 for i in range(len(tournois)):
-                    self._ihm.print_string("Tournement " + tournement_description[i]['name_tournement'] + ":")
+                    self._ihm.print_string("Tournement " + tournois[i]['name_tournement'] + ":")
                     list_players = sorted(tournois[i]['list_player'], key=itemgetter('first_name'))
                     for player in list_players:
                         self._ihm.print_string(player)
             if choice_menu_report == 4:
-                tournement_description = tournement_description.all()
                 tournois = tournement_table.all()
                 for i in range(len(tournois)):
-                    self._ihm.print_string("Tournement " + tournement_description[i]['name_tournement'] + ":")
+                    self._ihm.print_string("Tournement " + tournois[i]['name_tournement'] + ":")
                     list_players = sorted(tournois[i]['list_player'], key=itemgetter('ranking'), reverse=True)
                     for player in list_players:
                         self._ihm.print_string(player)
@@ -111,30 +113,27 @@ class ControleurMenu:
             self._ihm.menu_rapport_2()
             db = TinyDB('db.json')
             tournement_table = db.table('tournement')
-            tournement_description = db.table('tournement_description')
             choice_menu_report = self._ihm.saisie_int(" Choisissez une action : --> ")
             if choice_menu_report == 6:
-                tournement_description = tournement_description.all()
-                for i in range(len(tournement_description)):
+                tournois = tournement_table.all()
+                for i in range(len(tournois)):
                     self._ihm.print_string(
-                        tournement_description[i]['name_tournement'] + "," + tournement_description[i]['location'] +
-                        "," + tournement_description[i]['date'] +
-                        "," + str(tournement_description[i]['nb_round']) +
-                        "," + tournement_description[i]['time_control'] +
-                        "," + tournement_description[i]['description'])
+                        tournois[i]['name_tournement'] + "," + tournois[i]['location'] +
+                        "," + tournois[i]['date'] +
+                        "," + str(tournois[i]['nb_round']) +
+                        "," + tournois[i]['time_control'] +
+                        "," + tournois[i]['description'])
             if choice_menu_report == 7:
                 tournois = tournement_table.all()
-                tournement_description = tournement_description.all()
                 for i in range(len(tournois)):
-                    self._ihm.print_string("Tournement " + tournement_description[i]['name_tournement'] + ":")
+                    self._ihm.print_string("Tournement " + tournois[i]['name_tournement'] + ":")
                     list_rounds = tournois[i]['list_round']
                     for round in list_rounds:
                         self._ihm.print_string(round)
             if choice_menu_report == 8:
                 tournois = tournement_table.all()
-                tournement_description = tournement_description.all()
                 for i in range(len(tournois)):
-                    self._ihm.print_string("Tournement " + tournement_description[i]['name_tournement'] + ":")
+                    self._ihm.print_string("Tournement " + tournois[i]['name_tournement'] + ":")
                     list_match = tournois[i]['list_match']
                     for match in list_match:
                         self._ihm.print_string(match)

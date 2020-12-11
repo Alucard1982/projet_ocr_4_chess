@@ -34,14 +34,15 @@ class ControleurGenerale:
                 all_players_table = db.table('all_players')
                 player_by_tournement = db.table('player_by_tournement')
                 player_by_tournement.truncate()
-                tournement_description = db.table('tournement_description')
+                tournement_description = db.table('tournement')
                 tournois = self._menu.description_tournement()
                 list_players = self._tournement_progress.create_players()
-                # list_players = self._menu.description_player()
+                #list_players = self._menu.description_player()
                 for player in list_players:
                     tournois.add_player(player)
                     player_dic = player.to_dict()
-                    all_players_table.insert(player_dic)
+                    if player_dic not in all_players_table:
+                        all_players_table.insert(player_dic)
                     player_by_tournement.insert(player_dic)
                 tournement_description.insert({'name_tournement': tournois.name, 'location': tournois.location,
                                                'date': tournois.date, 'nb_round': tournois.nb_round,

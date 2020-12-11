@@ -105,6 +105,7 @@ class Round:
             self._list_match_paired.append((self._list_match[0], self._list_match[i]))
             del self._list_match[i]
             del self._list_match[0]
+        return self._list_match_paired
 
 
 class Match:
@@ -114,7 +115,7 @@ class Match:
         Permet de pouvoir utiliser les attributs à l'instanciation de la classe Macth
         """
         self._list_end_round = []
-        self._list_match = []
+        self._real_list_match_paired = []
 
     # getteur et setteur
     @property
@@ -122,12 +123,8 @@ class Match:
         return self._list_end_round
 
     @property
-    def list_match(self):
-        return self._list_match
-
-    @list_match.setter
-    def list_match(self, value):
-        self._list_match = value
+    def real_list_match_paired(self):
+        return self._real_list_match_paired
 
     def _saisie_int(self, message):
         try:
@@ -136,7 +133,7 @@ class Match:
             print("attention ce n'est pas un nombre compris entre 0 et 1")
             return self._saisie_int(message)
 
-    def score_match(self):
+    def score_match(self, match_paired):
         """
         Méthode de la classe Match permet d'appliquer un score à chaque joueur de chaque match.
         Elle va aussi permettre de de tagger le player avec l'id_player pour pouvoir savoir si un joueur
@@ -145,7 +142,9 @@ class Match:
         """
         list_scored_player = []
         i = 0
-        for player1_score, player2_score in self._list_match:
+        for elem in match_paired:
+            print(elem)
+        for player1_score, player2_score in match_paired:
             i = i + 1
             choix_joueur1 = self._saisie_int("Rentrer le score du du joueur1 du match" + str(i) + "\n")
             choix_joueur2 = self._saisie_int("Rentrer le score du joueur2 du match" + str(i) + "\n")

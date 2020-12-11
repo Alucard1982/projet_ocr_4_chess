@@ -21,13 +21,17 @@ class IhmMenu:
         :param message: le message ecrit
         :return: la saisie en int
         """
-        try:
-            """while int(input(message)) != 1 or int(input(message)) != 2:
-                print("attention ce n'est pas 1 ou 2 ")"""
-            return int(input(message))
-        except ValueError:
-            print("attention ce n'est pas un nombre ")
-            return IhmMenu.saisie_int(message)
+        boole = True
+        while boole:
+            try:
+                number = int(input(message))
+                if number < 1 or number > 3:
+                    print("attention le chiffre n'est pas 1 ou 2 ")
+                else:
+                    return number
+                    boole = False
+            except ValueError:
+                print("attention ce n'est pas un chiffre ")
 
     @staticmethod
     def saisie_string(message):
@@ -122,3 +126,4 @@ class IhmMenu:
         """
         print("1-continuer le tournois")
         print("2-arreter le tournois et quitter le logiciel")
+        print("3-Afficher le rapport du tournois en cours")
