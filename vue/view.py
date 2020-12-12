@@ -54,11 +54,12 @@ class IhmMenu:
         """
         méthode de la classe IhmMenu qui permet d'afficher le menu générale
         """
-        print("************WELCOME TO CHESS TOURNEMENT**************\n")
-        print("1-Créer et demarrer le tournois")
+        print("************BIENVENUE AU TOURNOI D'ECHEC**************\n")
+        print("1-Créer et demarrer le tournoi")
         print("2-Reprendre le tournois en cours")
-        print("3-Afficher les rapports de fin de tournois")
-        print("4-Quitter le programme")
+        print("3-Afficher les rapports de fin de tournoi")
+        print("4-Changer le classement des joueurs en fin de tournoi")
+        print("5-Quitter le programme")
 
     @staticmethod
     def menu_entrer_joueur():
@@ -82,7 +83,7 @@ class IhmMenu:
         """
         Méthode de la classe IhmMenu qui permet d'afficher les inputs du tournois
         """
-        print("******************WELCOME TO THE TOURNEMENT SOFTWARE********************\n")
+        print("******************RENTRER LA DESCRIPTION DU TOURNOI********************\n")
         choix_tournois_nom = IhmMenu.saisie_string("1-Entrer le nom du tournois\n")
         choix_tournois_lieu = IhmMenu.saisie_string("2-Entrer le lieu du tournois\n")
         choix_tournois_date = IhmMenu.saisie_string("3-Entrer la date du tournois\n")
@@ -105,7 +106,7 @@ class IhmMenu:
         print("2-Liste de tous les joueurs par classement")
         print("3-Liste de tous les joueurs par tournois par ordre alphabétique")
         print("4-Liste de tous les joueurs par tournois par classement")
-        print("5- Passer à la suite du menu")
+        print("5-Passer à la suite du menu")
 
     @staticmethod
     def menu_rapport_2():
@@ -127,3 +128,10 @@ class IhmMenu:
         print("1-continuer le tournois")
         print("2-arreter le tournois et quitter le logiciel")
         print("3-Afficher le rapport du tournois en cours")
+
+    @staticmethod
+    def change_rank_player():
+        choix_nom_famille = IhmMenu.saisie_string("1-Entrer le nom de famille du joueur\n")
+        choix_rank = IhmMenu.saisie_int("2-Entrer le nouveau classement du joueur\n")
+        list_data = [choix_nom_famille, choix_rank]
+        return list_data

@@ -2,7 +2,7 @@ from configparser import ConfigParser
 from modele.joueur import Player
 from modele.tournois import Tournement
 from operator import itemgetter
-from tinydb import TinyDB
+from tinydb import TinyDB, Query
 from vue.view import IhmMenu
 
 
@@ -139,3 +139,13 @@ class ControleurMenu:
                         self._ihm.print_string(match)
             if choice_menu_report == 9:
                 boole = False
+
+    def change_rank(self):
+        db = TinyDB('db.json')
+        all_players_table = db.table('all_players')
+        User = Query()
+        list_choix = self._ihm.change_rank_player()
+        if list_choix[0]:
+            all_players_table.search(User.last_name == list_choix[0])
+        if list_choix[1]:
+            all_players_table.update({"ranking": list_choix[1]}, User.last_name == list_choix[0])

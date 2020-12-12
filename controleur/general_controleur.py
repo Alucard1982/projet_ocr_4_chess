@@ -42,5 +42,7 @@ class ControleurGenerale:
                 self._menu.report_first_part()
                 self._menu.report_second_part()
             if choice_menu_generale == 4:
+                self._menu.change_rank()
+            if choice_menu_generale == 5:
                 boole = False
                 self._ihm.print_string("THX FOR PLAYING CHESS!! HAVE A NICE DAY")

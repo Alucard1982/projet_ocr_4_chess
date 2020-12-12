@@ -28,18 +28,17 @@ class ControleurTournementProgress:
         permet la création d'objets Player automatique
         :return: une liste d'objet Player
         """
-        player1 = Player("aojo1", "dubois", "14mai", "male", 1800, 1)
-        player2 = Player("bojo2", "dubois", "14mai", "male", 1400, 2)
-        player3 = Player("cojo3", "dubois", "14mai", "male", 1500, 3)
-        player4 = Player("dojo4", "dubois", "14mai", "male", 1600, 4)
-        player5 = Player("eojo5", "dubois", "14mai", "male", 1700, 5)
-        player6 = Player("fojo6", "dubois", "14mai", "male", 1850, 6)
-        player7 = Player("gojo7", "dubois", "14mai", "male", 1550, 7)
-        player8 = Player("hojo8", "dubois", "14mai", "male", 1450, 8)
+        player1 = Player("aojo1", "dubois1", "14mai", "male", 1800, 1)
+        player2 = Player("bojo2", "dubois2", "14mai", "male", 1400, 2)
+        player3 = Player("cojo3", "dubois3", "14mai", "male", 1500, 3)
+        player4 = Player("dojo4", "dubois4", "14mai", "male", 1600, 4)
+        player5 = Player("eojo5", "dubois5", "14mai", "male", 1700, 5)
+        player6 = Player("fojo6", "dubois6", "14mai", "male", 1850, 6)
+        player7 = Player("gojo7", "dubois7", "14mai", "male", 1550, 7)
+        player8 = Player("hojo8", "dubois8", "14mai", "male", 1450, 8)
 
         list_players = [player1, player2, player3, player4, player5, player6, player7, player8]
         return list_players
-
 
     def round1(self, list_players):
         """
@@ -93,7 +92,10 @@ class ControleurTournementProgress:
     def resume_tournement(self):
 
         list_data = self._data_tiny.pull_data()
-        list_rounds, list_rank_player = list_data
+        try:
+            list_rounds, list_rank_player = list_data
+        except TypeError:
+            return
         nb_real_round = self._gestion_tournement.nb_round - (len(list_rounds))
         self._ihm.print_string("************** Il reste " + str(nb_real_round) +
                                " rounds avant la fin du tournois************")

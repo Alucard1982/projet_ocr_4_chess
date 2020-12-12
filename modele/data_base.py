@@ -116,11 +116,11 @@ class DataTiny:
 
     def pull_data(self):
         """
-                Méthode de la classe ControleurTournementProgress
-                Permet de reprendre le tournois à l'état ou on l'a quitter et de finir le tournois
-                Ici on récupere les données dans TinyDb pour la suite du tournois
-                :return: la lists de tous les objets rounds du tournois
-                """
+        Méthode de la classe ControleurTournementProgress
+        Permet de reprendre le tournois à l'état ou on l'a quitter et de finir le tournois
+        Ici on récupere les données dans TinyDb pour la suite du tournois
+        :return: la lists de tous les objets rounds du tournois
+        """
         list_rank_player = []
         list_rounds = []
         list_match_paird = []
@@ -133,6 +133,7 @@ class DataTiny:
             dic_player_score = dic_player_rank[0]['player_scored']
         except IndexError:
             print("IL N Y A PAS DE TOURNOIS EN COURS!!!!!")
+            return
         for elem in dic_player_score:
             list_rank_player.append([self.to_object_player(elem['player1']), elem["score_player1"]])
         dic_round = round_table.all()
