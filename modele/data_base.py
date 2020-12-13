@@ -10,7 +10,7 @@ class DataTiny:
 
     def to_object_player(self, dic):
         """
-        Méthode de la classe ControleurTournementProgress
+        Méthode de la classe DataTiny
         Transforme un dictionnaire Player en objet Player
         :param dic: dictionnaire de Player
         :return:un objet player
@@ -22,7 +22,7 @@ class DataTiny:
 
     def to_object_round(self, dic):
         """
-        Méthode de la classe ControleurTournementProgress
+        Méthode de la classe DataTiny
         Transforme un dictionnaire Round en objet Round
         :param dic: dictionnaire Round
         :return: un objet Round
@@ -58,7 +58,8 @@ class DataTiny:
 
     def insert_report(self, list_rounds):
         """
-        Méthode l'objet ControleurGenerale qui permet de mettre les données du tournois dans tinyDB
+        Méthode del aclasse DataTiny
+        Permet de mettre les données du tournois dans tinyDB
         :param list_rounds:  liste des rounds
         """
         list_dic_round = []
@@ -84,8 +85,8 @@ class DataTiny:
 
     def push_between_round(self, list_rounds, round):
         """
-        Méthode de la classe ControleurTournementProgress
-        Permet de rentrer les données des player avec leur scores ainsi que les rounds dans tinyDb
+        Méthode de la classe DataTiny
+        Permet de rentrer les données des players avec leur scores, les rounds ainsi que les macths
         :param list_rounds: list de tout les round joué
         :param round: le dernier round joué
         """
@@ -116,10 +117,9 @@ class DataTiny:
 
     def pull_data(self):
         """
-        Méthode de la classe ControleurTournementProgress
-        Permet de reprendre le tournois à l'état ou on l'a quitter et de finir le tournois
-        Ici on récupere les données dans TinyDb pour la suite du tournois
-        :return: la lists de tous les objets rounds du tournois
+        Méthode de la classe DataTiny
+        Permet de récuperer les données dans la base pour continuer le tournoi la ou on l'a arreté
+        :return: une list de list de round et de list de player avec leurs scores
         """
         list_rank_player = []
         list_rounds = []

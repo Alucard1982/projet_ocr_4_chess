@@ -43,9 +43,9 @@ class ControleurTournementProgress:
     def round1(self, list_players):
         """
         Méthode de la classe ControleurTournementProgress
-        Permet le deroulement du permier round du tournois suisse
+        Permet le deroulement du permier round du tournoi suisse
         :param:liste de player
-        :return: l'objet round qui est le premier round du tournois
+        :return: l'objet round qui est le premier round du tournoi
         """
         round1 = Round("round1", str(datetime.datetime.now()))
         match_paired = round1.first_round(list_players)
@@ -59,11 +59,11 @@ class ControleurTournementProgress:
     def more_round(self, round1):
         """
         Méthode de la classe ControleurTournementProgress
-        Permet le déroulement de chaque round jusqu à la fin du tournois
+        Permet le déroulement de chaque round jusqu à la fin du tournoi
         excepté pour le round 1
         On peut arreter le tournois en cours
+        Afficher les rapport entre chaque round
         :param round1:
-        :return: La liste de tous les objets rounds du tournois
         """
         list_rounds = [round1]
         for i in range(self._gestion_tournement.nb_round - 1):
@@ -90,7 +90,13 @@ class ControleurTournementProgress:
                 break
 
     def resume_tournement(self):
-
+        """
+        Méthode de la classe ControleurTournementProgress
+        S'execute quand on reprend un tournoi en cours
+        Permet le déroulement de chaque round jusqu à la fin du tournoi
+        On peut arreter le tournoi en cours
+        Peux afficher les rapports entre chaque round
+        """
         list_data = self._data_tiny.pull_data()
         try:
             list_rounds, list_rank_player = list_data

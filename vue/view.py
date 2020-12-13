@@ -10,7 +10,7 @@ class IhmMenu:
         try:
             return int(input(message))
         except ValueError:
-            print("attention ce n'est pas un nombre ")
+            print("attention ce n'est pas un chiffre ")
             return IhmMenu.saisie_int(message)
 
     @staticmethod
@@ -67,8 +67,8 @@ class IhmMenu:
         Méthode de la classe IhmMenu qui permet d'afficher les inputs des Players
         """
         print("***************RENTRER LES JOUEURS*************")
-        choix_joueur_nom = IhmMenu.saisie_string("1-Entrer le Prenom du joueur\n")
-        choix_joueur_prenom = IhmMenu.saisie_string("2-Entrer le Nom du joueur\n")
+        choix_joueur_nom = IhmMenu.saisie_string("1-Entrer le prenom du joueur\n")
+        choix_joueur_prenom = IhmMenu.saisie_string("2-Entrer le nom du joueur\n")
         choix_joueur_date = IhmMenu.saisie_string("3-Entrer la date d'anniversaire du joueur\n")
         choix_joueur_sex = IhmMenu.saisie_string("4-Entrer le sex du joueur\n")
         choix_joueur_rank = IhmMenu.saisie_int("5-Entrer le rang du joueur\n")
@@ -81,15 +81,15 @@ class IhmMenu:
     @staticmethod
     def menu_description_tournement():
         """
-        Méthode de la classe IhmMenu qui permet d'afficher les inputs du tournois
+        Méthode de la classe IhmMenu qui permet d'afficher les inputs du tournoi
         """
         print("******************RENTRER LA DESCRIPTION DU TOURNOI********************\n")
-        choix_tournois_nom = IhmMenu.saisie_string("1-Entrer le nom du tournois\n")
-        choix_tournois_lieu = IhmMenu.saisie_string("2-Entrer le lieu du tournois\n")
-        choix_tournois_date = IhmMenu.saisie_string("3-Entrer la date du tournois\n")
+        choix_tournois_nom = IhmMenu.saisie_string("1-Entrer le nom du tournoi\n")
+        choix_tournois_lieu = IhmMenu.saisie_string("2-Entrer le lieu du tournoi\n")
+        choix_tournois_date = IhmMenu.saisie_string("3-Entrer la date du tournoi\n")
         choix_tournois_time_control = IhmMenu.saisie_string(
-            "4-Entrer le time_control du tournois(blitz,bullet,quick)\n")
-        choix_tournois_description = IhmMenu.saisie_string("5-Entrer la description du tournois\n")
+            "4-Entrer le time_control du tournoi(blitz,bullet,quick)\n")
+        choix_tournois_description = IhmMenu.saisie_string("5-Entrer la description du tournoi\n")
 
         list_choix = [choix_tournois_nom, choix_tournois_lieu, choix_tournois_date,
                       choix_tournois_time_control, choix_tournois_description, ]
@@ -115,8 +115,8 @@ class IhmMenu:
         partie du rapport
         """
         print("6-Liste de tous les tournois ")
-        print("7-Liste de toutes les rounds par tournois ")
-        print("8-Liste de tous les matchs par tournois")
+        print("7-Liste de toutes les rounds par tournoi ")
+        print("8-Liste de tous les matchs par tournoi")
         print("9- revenir au menu générale")
 
     @staticmethod
@@ -125,12 +125,16 @@ class IhmMenu:
         Méthode de la classe IhmMenu qui permet d'afficher le menu
         entre chaque round
         """
-        print("1-continuer le tournois")
-        print("2-arreter le tournois et quitter le logiciel")
+        print("1-continuer le tournoi")
+        print("2-arreter le tournoi et revenir au menu générale")
         print("3-Afficher le rapport du tournois en cours")
 
     @staticmethod
     def change_rank_player():
+        """
+        Méthode de la classe IhmMenu
+        Permet d'afficher le menu pour changer le rank du joueur
+        """
         choix_nom_famille = IhmMenu.saisie_string("1-Entrer le nom de famille du joueur\n")
         choix_rank = IhmMenu.saisie_int("2-Entrer le nouveau classement du joueur\n")
         list_data = [choix_nom_famille, choix_rank]

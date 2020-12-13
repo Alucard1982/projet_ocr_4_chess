@@ -4,8 +4,8 @@ from operator import itemgetter
 class Round:
     def __init__(self, name="", star_date=None, end_date=None):
         """
-        Constructeur de la classe Round qui permet d'utiliser les attributs à l'instanciation
-        de la classe Round
+        Constructeur de la classe Round
+        Permet d'utiliser les attributs à l'instanciation de la classe Round
         """
         self._list_match = []
         self._list_match_paired = []
@@ -68,15 +68,18 @@ class Round:
 
     def __repr__(self):
         """
-        Méthode de la classe Round qui permet l'affichage de l'objet Round
+        Méthode de la classe Round
+        Permet l'affichage de l'objet Round
         :return: les attributs de l'objet qu'on veut afficher
         """
         return " {} {} {}".format(self._name, self._star_date, self._end_date)
 
     def first_round(self, list_players):
         """
-        Méthode de la classe Round qui permet de trier une list de joueur en fonction du classement au 1 round
-        d'un tournois suisse . Créer des Paires de joueurs pour chaque match, toujours en fonction du systeme suisse
+        Méthode de la classe Round
+        Permet de trier une list de joueur en fonction du classement au 1 round
+        d'un tournois suisse .
+        Créer des Paires de joueurs pour chaque match, toujours en fonction du systeme suisse
         pour le 1er round.
         :param list_players: la list des joueur du tournois
         :return: une list de match.Un match equivaux à deux joueurs
@@ -92,9 +95,11 @@ class Round:
 
     def next_round(self):
         """
-        Méthode de la classe Round qui permet de pairer les joueurs par match en fonction du système suisse .
-        Un joueur ne peux pas rejouer contre un autre joueur.Cette méthode s'applique
-        pour tout les rounds du tournois excepter le round 1.
+        Méthode de la classe Round
+        Permet de pairer les joueurs par match en fonction du système suisse .
+        Un joueur ne peux pas rejouer contre un autre joueur.
+        Cette méthode s'applique pour tout les rounds du tournois excepter le round 1.
+        :return:la liste des matchs avec le pairage de chaque joueur
         """
         for elem in self._list_match:
             self._list_player_scored.append(elem)
@@ -130,7 +135,8 @@ class Match:
 
     def score_match(self, match_paired):
         """
-        Méthode de la classe Match permet d'appliquer un score à chaque joueur de chaque match.
+        Méthode de la classe Match
+        Permet d'appliquer un score à chaque joueur de chaque match.
         Elle va aussi permettre de de tagger le player avec l'id_player pour pouvoir savoir si un joueur
         a deja joué contre un autre.
         :return: une list de joueur classé par point et par classement

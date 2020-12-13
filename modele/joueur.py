@@ -5,7 +5,7 @@ class Player:
                  sex="", ranking=None, id_player=None):
         """
         Constructeur de la classe Player
-         Permet d'utiliser les attributs à l'instenciation de la classe Player
+        Permet d'utiliser les attributs à l'instenciation de la classe Player
         """
         self._first_name = first_name
         self._last_name = last_name

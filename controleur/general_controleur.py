@@ -13,8 +13,7 @@ class ControleurGenerale:
 
     def _chess_tournement(self, list_players):
         """
-        Méthode de l'objet ControleurGenerale qui fait le déroulement du tournois suisse
-        retrun: la liste de tous les rounds du tournois
+        Méthode de la classe ControleurGenerale qui fait le déroulement du tournois suisse
         """
         self._ihm.print_string("*******************ROUND1******************\n")
         round1 = self._tournement_progress.round1(list_players)
@@ -22,8 +21,8 @@ class ControleurGenerale:
 
     def tournement_software(self):
         """
-        Méthode principale de l'objet ControleurGenerale
-        qui regroupe le menu,les rapports , et le déroulement du tournois
+        Méthode principale de la classe ControleurGenerale
+        Permet le  bon déroulement du logiciel
         """
         boole = True
         while boole:
