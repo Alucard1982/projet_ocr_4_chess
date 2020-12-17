@@ -94,6 +94,16 @@ class Round:
         return self._list_match
 
     def next_round(self):
+        for elem in self._list_match:
+            self._list_player_scored.append(elem)
+        """while len(self._list_match) != 0:
+            i = 1
+            while self._list_match[0][0].id_player in self._list_match[i][0].tag_player:
+                i = i + 1
+            self._list_match_paired.append((self._list_match[0], self._list_match[i]))
+            del self._list_match[i]
+            del self._list_match[0]
+        return self._list_match_paired"""
         """
         Méthode de la classe Round
         Permet de pairer les joueurs par match en fonction du système suisse .
@@ -101,16 +111,37 @@ class Round:
         Cette méthode s'applique pour tout les rounds du tournois excepter le round 1.
         :return:la liste des matchs avec le pairage de chaque joueur
         """
-        for elem in self._list_match:
-            self._list_player_scored.append(elem)
-        while len(self._list_match) != 0:
-            i = 1
-            while self._list_match[0][0].id_player in self._list_match[i][0].tag_player:
-                i = i + 1
-            self._list_match_paired.append((self._list_match[0], self._list_match[i]))
-            del self._list_match[i]
-            del self._list_match[0]
+        nb_players = len(self._list_match)
+        for i in range(0, nb_players, 2):
+            j = i + 1
+            while j < nb_players and self._list_match[i][0].id_player in self._list_match[j][0].tag_player:
+                j = j + 1
+            if j == nb_players:
+                j = i - 1
+                while not self.echange_possible(i + 1, j):
+                    j = j - 1
+            var_temporaire = self._list_match[j]
+            self._list_match[j] = self._list_match[i + 1]
+            self._list_match[i + 1] = var_temporaire
+        for i in range(0, nb_players, 2):
+            self._list_match_paired.append((self._list_match[i], self._list_match[i + 1]))
         return self._list_match_paired
+
+    def echange_possible(self, i, j):
+        echange_possible = True
+        if i % 2 == 0:
+            adversaire_i = i + 1
+        else:
+            adversaire_i = i - 1
+        if j % 2 == 0:
+            adversaire_j = j + 1
+        else:
+            adversaire_j = j - 1
+        if self._list_match[i][0].id_player in self._list_match[adversaire_j][0].tag_player:
+            echange_possible = False
+        if self._list_match[j][0].id_player in self._list_match[adversaire_i][0].tag_player:
+            echange_possible = False
+        return echange_possible
 
 
 class Match:

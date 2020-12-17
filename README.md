@@ -2,7 +2,7 @@
 
 description générale du système ou du projet:
 Logiciel réalisé en MVC, POO qui permet de réaliser un tournoi d'echec en mode suisse.
-Un fichier setup.cfg à la racine du projet permet de modifier le nombre de tour et le nombre de joueurs.
+Un fichier setup.cfg à la racine du projet permet de modifier le nombre de tours et le nombre de joueurs.
 
 Statut du projet:
 Le développement du projet en est au stade alpha.Il faudrait rajouter quelques fonctionnalités pour le passer en production
