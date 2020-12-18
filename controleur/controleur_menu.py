@@ -89,7 +89,6 @@ class ControleurMenu:
             if list_choix[5]:
                 player.id_player = list_choix[5]
             list_players.append(player)
-        print(list_players)
         return list_players
 
     def report_first_part(self):
