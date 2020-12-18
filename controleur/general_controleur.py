@@ -28,8 +28,8 @@ class ControleurGeneral:
                           Permet de run le tournoi
                       tournement_software()
                           Permet de run le logiciel
-                      
-                      """
+                    """
+
     def __init__(self):
         """
 
@@ -63,8 +63,8 @@ class ControleurGeneral:
             choice_menu_generale = self._ihm.saisie_int(" Choisissez une action : --> ")
             if choice_menu_generale == 1:
                 tournois = self._menu.description_tournement()
-                #choix entre joueurs automatiques ou joueurs rentrés à la main
-                #list_players = self._tournement_progress.create_players()
+                # choix entre joueurs automatiques ou joueurs rentrés à la main
+                # list_players = self._tournement_progress.create_players()
                 list_players = self._menu.description_player()
                 self._data_tiny.insert_player_and_tournement(list_players, tournois)
                 self._chess_tournement(list_players)
