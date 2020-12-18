@@ -1,11 +1,12 @@
-from controleur.general_controleur import ControleurGenerale
+from controleur.general_controleur import ControleurGeneral
 
 
 def main():
     """
+
     Fonction qui déroule le programme
     """
-    controleur = ControleurGenerale()
+    controleur = ControleurGeneral()
     controleur.tournement_software()
 
 

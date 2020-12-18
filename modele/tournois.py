@@ -2,12 +2,39 @@ from configparser import ConfigParser
 
 
 class Tournement:
+    """
+       Une classe utilisé pour réprésenter un tournois
+
+       ...
+
+       Attributs
+       ----------
+        name : str
+           le nom du tournoi
+        location : str
+           la location du tournoi
+        date : str
+           la date du tournoi
+        nb_round:int
+            le noombre de round du tournoi
+        list_round:list
+            list de tout les rounds du tournoi
+        list_player:list
+            list de tout les players du tournoi
+        time control:str
+            représente le type de coup du tournoi
+        description:str
+            représente la description du tournoi
+
+       Methods
+       -------
+       __repr__
+           Permet d'afficher l'objet tournoi
+       """
 
     def __init__(self, name="", location="", date="", time_control="", description=""):
-        """
-        Constructeur de la classe Tournement qui va permettre d'utiliser les attributs
-        à l'instanciation de la class Tournement.
-        """
+        """Constructeur de la classe Tournement qui va permettre de créer l'objet tournoi"""
+
         parser = ConfigParser()
         parser.read('setup.cfg')
         nb_rounds = parser.get('TOURNEMENT', 'nb_rounds')
@@ -20,7 +47,7 @@ class Tournement:
         self._time_control = time_control
         self._description = description
 
-    # getteur et setteur
+    """ getteur et setteur"""
     @property
     def name(self):
         return self._name
@@ -81,7 +108,8 @@ class Tournement:
 
     def __repr__(self):
         """
-        Méthode d'affiche de l'objet Tournement
+
+        Méthode d'affichage de l'objet Tournement
         :return: les attributs de l'objet qu'on veut afficher
         """
         return " {} {} {} {} {} {}".format(self._name,

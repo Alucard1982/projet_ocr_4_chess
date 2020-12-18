@@ -2,11 +2,40 @@ from operator import itemgetter
 
 
 class Round:
+    """
+              Une classe utilisé pour réprésenter un round
+
+              ...
+
+              Attributs
+              ----------
+               name : str
+                  le nom du round
+               star_date : date
+                  la date du debut du tournoi
+               end_date : date
+                  la date de fin de tournoi
+               list_match:list
+                permet de récuperer la list des players trier par score et ranking à la fin du round
+                list_match_paired:list
+                   list des matchs(1 match = 2 joueurs)
+               list_player_score:list
+                   list des joueur classé par score et ranking
+
+              Methods
+              -------
+              __repr__()
+                  Permet d'afficher l'objet round
+              first_round()
+                  Permet le pairage du round 1 qui est spécifique
+              next_round()
+                  Permet le pairage de tout les rounds jusqu'a la fin du tournoi
+              """
+
     def __init__(self, name="", star_date=None, end_date=None):
-        """
-        Constructeur de la classe Round
-        Permet d'utiliser les attributs à l'instanciation de la classe Round
-        """
+
+        """Constructeur de la classe Round qui va permettre de créer l'objet round"""
+
         self._list_match = []
         self._list_match_paired = []
         self._list_player_scored = []
@@ -14,7 +43,8 @@ class Round:
         self._star_date = star_date
         self._end_date = end_date
 
-    # getteur et setteur
+    """ getteur et setteur"""
+
     @property
     def list_match(self):
         return self._list_match
@@ -68,6 +98,7 @@ class Round:
 
     def __repr__(self):
         """
+
         Méthode de la classe Round
         Permet l'affichage de l'objet Round
         :return: les attributs de l'objet qu'on veut afficher
@@ -76,6 +107,7 @@ class Round:
 
     def first_round(self, list_players):
         """
+
         Méthode de la classe Round
         Permet de trier une list de joueur en fonction du classement au 1 round
         d'un tournois suisse .
@@ -94,6 +126,14 @@ class Round:
         return self._list_match
 
     def next_round(self):
+        """
+
+        Méthode de la classe Round
+        Permet de pairer les joueurs par match en fonction du système suisse .
+        Un joueur ne peux pas rejouer contre un autre joueur.
+        Cette méthode s'applique pour tout les rounds du tournois excepter le round 1.
+        :return:la liste des matchs avec le pairage de chaque joueur
+        """
         for elem in self._list_match:
             self._list_player_scored.append(elem)
         """while len(self._list_match) != 0:
@@ -104,13 +144,7 @@ class Round:
             del self._list_match[i]
             del self._list_match[0]
         return self._list_match_paired"""
-        """
-        Méthode de la classe Round
-        Permet de pairer les joueurs par match en fonction du système suisse .
-        Un joueur ne peux pas rejouer contre un autre joueur.
-        Cette méthode s'applique pour tout les rounds du tournois excepter le round 1.
-        :return:la liste des matchs avec le pairage de chaque joueur
-        """
+
         nb_players = len(self._list_match)
         for i in range(0, nb_players, 2):
             j = i + 1
@@ -145,14 +179,31 @@ class Round:
 
 
 class Match:
+    """
+             Une classe utilisé pour réprésenter un match
+
+             ...
+
+             Attributs
+             ----------
+              list_end_round : list
+                list des players avec le score classé par score et ranking à la fin du round
+
+             Methods
+             -------
+
+             saisie_int()
+                permet de sécuriser les saisies des scores
+             score_match()
+                 Permet d'appliquer un score à chaque joueur
+             """
     def __init__(self):
-        """
-        Constructeur de la classe Match
-        Permet de pouvoir utiliser les attributs à l'instanciation de la classe Macth
-        """
+
+        """Constructeur de la classe Match qui va permettre de créer l'objet match"""
+
         self._list_end_round = []
 
-    # getteur et setteur
+    """getteur et setteur"""
     @property
     def list_end_round(self):
         return self._list_end_round
@@ -166,11 +217,12 @@ class Match:
 
     def score_match(self, match_paired):
         """
+
         Méthode de la classe Match
         Permet d'appliquer un score à chaque joueur de chaque match.
         Elle va aussi permettre de de tagger le player avec l'id_player pour pouvoir savoir si un joueur
         a deja joué contre un autre.
-        :return: une list de joueur classé par point et par classement
+        :return: une list de joueur classé par point et par ranking
         """
         list_scored_player = []
         i = 0

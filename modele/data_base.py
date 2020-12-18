@@ -10,6 +10,7 @@ class DataTiny:
 
     def to_object_player(self, dic):
         """
+
         Méthode de la classe DataTiny
         Transforme un dictionnaire Player en objet Player
         :param dic: dictionnaire de Player
@@ -22,6 +23,7 @@ class DataTiny:
 
     def to_object_round(self, dic):
         """
+
         Méthode de la classe DataTiny
         Transforme un dictionnaire Round en objet Round
         :param dic: dictionnaire Round
@@ -31,6 +33,11 @@ class DataTiny:
         return round
 
     def truncate(self):
+        """
+
+        Méthode de la classe TinyDb
+        Permet d'effacer les table de la base de données
+        """
         db = TinyDB('db.json')
         match_table = db.table('match_rank')
         round_table = db.table('round')
@@ -40,6 +47,13 @@ class DataTiny:
         match_paired_table.truncate()
 
     def insert_player_and_tournement(self, list_players, tournois):
+        """
+
+        Méthode de la classe DataTiny
+        Permet d'insert les players en base de données ainsi que la description du tournoi
+        :param list_players:
+        :param tournois:
+        """
         db = TinyDB('db.json')
         all_players_table = db.table('all_players')
         player_by_tournement = db.table('player_by_tournement')
@@ -58,6 +72,7 @@ class DataTiny:
 
     def insert_report(self, list_rounds):
         """
+
         Méthode del aclasse DataTiny
         Permet de mettre les données du tournois dans tinyDB
         :param list_rounds:  liste des rounds
@@ -85,6 +100,7 @@ class DataTiny:
 
     def push_between_round(self, list_rounds, round):
         """
+
         Méthode de la classe DataTiny
         Permet de rentrer les données des players avec leur scores, les rounds ainsi que les macths
         :param list_rounds: list de tout les round joué
@@ -117,6 +133,7 @@ class DataTiny:
 
     def pull_data(self):
         """
+
         Méthode de la classe DataTiny
         Permet de récuperer les données dans la base pour continuer le tournoi la ou on l'a arreté
         :return: une list de list de round et de list de player avec leurs scores

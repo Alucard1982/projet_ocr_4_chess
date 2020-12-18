@@ -7,16 +7,44 @@ from vue.view import IhmMenu
 
 
 class ControleurMenu:
+    """
+                   Une classe utilisé pour réprésenter le ControleurMenu
+
+                   ...
+
+                   Attributs
+                   ----------
+                    tournement : objet
+                       l'objet Tournement
+                    ihm : objet
+                       l'objet IhmMenu
+
+
+                   Methods
+                   -------
+                   description_tournement()
+                       Permet de rentrer avec des inputs la descriptoion du tournoi
+                   description_player()
+                       Permet de rentrer  avec des inputs les joueurs
+                   report_first_part()
+                       permet l'affiche de la premiere partie des rapports
+                   report_second_part()
+                        permet l'affiche de la seconde partie des rapports
+                   change_rank()
+                        permet de changer le ranking d'un joueur
+                   """
     def __init__(self):
         """
-        Constructeur de la classe ControleurMenu
-        Permet d'utiliser les attributs à l'instenciation de la classe ControleurMenu
+
+        Constructeur de la classe ControleurMenu qui va permettre de créer
+        l'objet ControleurMenu
         """
         self._ihm = IhmMenu()
         self._tournement = Tournement()
 
     def description_tournement(self):
         """
+
         Méthode de la classe ControleurMenu
         Permet de rentrer les données du tournois
         :return:l'objet tournois
@@ -36,6 +64,7 @@ class ControleurMenu:
 
     def description_player(self):
         """
+
         Méthode de la classe ControleurMenu
         Permet de rentrer les données des players
         :return: une liste d'objet player
@@ -65,6 +94,7 @@ class ControleurMenu:
 
     def report_first_part(self):
         """
+
         Méthode de la classe ControleurMenu
         Première partie du rapport de fin tournois
         Choix en fonction du menu rapport
@@ -104,6 +134,7 @@ class ControleurMenu:
 
     def report_second_part(self):
         """
+
         Méthode de la classe ControleurMenu
         Deuxième partie du rapport de fin de tournois
         Choix en fonction du menu rapport
@@ -141,6 +172,11 @@ class ControleurMenu:
                 boole = False
 
     def change_rank(self):
+        """
+
+        Méthode de la classe ControleurMenu
+        Permet de modifier le ranking d'un player en fin de tournois
+        """
         db = TinyDB('db.json')
         all_players_table = db.table('all_players')
         User = Query()

@@ -1,12 +1,38 @@
-
 class Player:
+    """
+          Une classe utilisé pour réprésenter un joueur
+
+          ...
+
+          Attributs
+          ----------
+           first_name : str
+              le prenom du joueur
+           last_name : str
+              le prenom du joueur
+           date_of_birth : str
+              la date d'anniversaire du joueur
+           sex:str
+               le dex du joueur
+           ranking:int
+               le classement du joueur
+           id_player:int
+               l'id du player pour un tournoi
+           tag_player:list
+               liste d'id de player
+
+          Methods
+          -------
+          __repr__()
+              Permet d'afficher l'objet player
+          to_dict()
+              Permet de serialiser un objet player
+          """
 
     def __init__(self, first_name="", last_name="", date_of_birth="",
                  sex="", ranking=None, id_player=None):
-        """
-        Constructeur de la classe Player
-        Permet d'utiliser les attributs à l'instenciation de la classe Player
-        """
+        """Constructeur de la classe Player qui va permettre de créer l'objet player"""
+
         self._first_name = first_name
         self._last_name = last_name
         self._date_of_birth = date_of_birth
@@ -15,7 +41,7 @@ class Player:
         self._id_player = id_player
         self._tag_player = []
 
-    # getteur et setteur
+    """ getteur et setteur"""
     @property
     def first_name(self):
         return self._first_name
@@ -79,6 +105,7 @@ class Player:
 
     def __repr__(self):
         """
+
         Méthode de la classe Player qui permet d'afficher l'objet
         :return: les attributs de l'objet qu'on veut afficher
         """
@@ -90,6 +117,7 @@ class Player:
 
     def to_dict(self):
         """
+
         Méthode de la classe player qui permet de sérialiser l'objet Player
         :return: un dictionnaire de l'objet Player
         """
